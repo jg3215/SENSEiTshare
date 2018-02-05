@@ -21,7 +21,7 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@android:color/holo_purple"
-            android:textSize="@dimen/_40ssp"
+            android:textSize="@dimen/_30ssp"
             android:visibility="visible" />
 
     </LinearLayout>
