@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context="com.example.costa.senseit.login">
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="@dimen/_220sdp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/senseit" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="@dimen/_260sdp"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/_80sdp"
+            android:background="@android:color/white"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/loginbutton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/signinbutton"
+            android:layout_alignBottom="@+id/signinbutton"
+            android:layout_alignLeft="@+id/imageView3"
+            android:layout_alignStart="@+id/imageView3"
+            android:onClick="loginbuttonclick"
+            android:text="Log in"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/signinbutton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/_31sdp"
+            android:layout_marginEnd="@dimen/_37sdp"
+            android:layout_marginRight="@dimen/_37sdp"
+            android:onClick="signinbuttonclick"
+            android:text="Sign in"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="Welcome!"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_30ssp" />
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

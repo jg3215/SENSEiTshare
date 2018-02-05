@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.costa.senseit">
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/iconsenseit"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/iconsenseit"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".login"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".lungbutton"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".o2button"
+            android:screenOrientation="portrait" />
+        <activity android:name=".alibutton"
+            android:screenOrientation="portrait" />
+        <activity android:name=".no2button"
+            android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".loginbutton"
+            android:screenOrientation="portrait" />
+        <activity android:name=".signinbutton"
+            android:screenOrientation="portrait" />
+        <activity android:name=".welcome"
+            android:screenOrientation="portrait" />
+        <activity android:name=".connectblueheart"
+            android:screenOrientation="portrait"></activity>
+    </application>
+
+</manifest>
