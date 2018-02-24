@@ -38,6 +38,8 @@ public class connectblueheart extends AppCompatActivity {
         lv = (ListView)findViewById(R.id.listView);
     }
 
+    
+
     public void on(View v){
         if (!BA.isEnabled()) {
             Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -54,10 +56,16 @@ public class connectblueheart extends AppCompatActivity {
     }
 
 
+   // public  void visible(View v){
+   //     Intent getVisible = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+   //     startActivityForResult(getVisible, 0);
+   // }
+
     public  void visible(View v){
-        Intent getVisible = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        startActivityForResult(getVisible, 0);
+
+
     }
+
 
 
     public void list(View v){

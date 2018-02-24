@@ -1,7 +1,9 @@
 package com.example.costa.senseit;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class o2button extends AppCompatActivity {
@@ -21,5 +23,10 @@ public class o2button extends AppCompatActivity {
 
 
         mMessageWindow.setText(someMessage);
+    }
+    public void bluetoothclick(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(),findDevice.class);
+        startActivity(intent);
     }
 }
