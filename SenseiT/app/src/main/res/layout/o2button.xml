@@ -43,6 +43,7 @@
             android:backgroundTint="@android:color/background_light"
             android:elevation="0dp"
             android:scaleType="fitXY"
+            android:onClick="bluetoothclick"
             app:srcCompat="@drawable/connectorange" />
 
 
