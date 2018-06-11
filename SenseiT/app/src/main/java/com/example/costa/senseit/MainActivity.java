@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.View.OnClickListener;
 
-//kakajunn testing
+
 public class MainActivity extends AppCompatActivity {
 ImageButton heartratebutton;
 ImageButton o2button;
