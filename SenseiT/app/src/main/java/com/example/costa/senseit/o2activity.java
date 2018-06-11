@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class o2button extends AppCompatActivity {
+public class o2activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.o2button); TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
+        setContentView(R.layout.o2); TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
 
 
         StringBuilder stringBuilder = new StringBuilder();

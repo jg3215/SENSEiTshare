@@ -3,12 +3,12 @@ package com.example.costa.senseit;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-public class no2button extends AppCompatActivity {
+public class no2activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.no2button);
+        setContentView(R.layout.no2);
         TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
         StringBuilder stringBuilder = new StringBuilder();
 

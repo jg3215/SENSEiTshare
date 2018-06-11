@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
-import android.view.Menu;
-import android.view.View.OnClickListener;
 
 public class login extends AppCompatActivity {
 
@@ -23,7 +21,7 @@ public class login extends AppCompatActivity {
 
     public void signinbuttonclick(View v)
     {
-        Intent intent = new Intent(getApplicationContext(), signinbutton.class);
+        Intent intent = new Intent(getApplicationContext(), signinactivity.class);
         startActivity(intent);
     }
 

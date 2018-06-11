@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.content.Intent;
 import android.view.View;
-import android.view.Menu;
 import android.view.View.OnClickListener;
 
 
@@ -25,9 +24,9 @@ ImageButton o2button;
         heartratebutton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 
-                // Start NewActivity.class
+                // Start heartactivity.class
                 Intent myIntent = new Intent(MainActivity.this,
-                        NewActivity.class);
+                        heartactivity.class);
                 startActivity(myIntent);
             }
         });
@@ -37,9 +36,9 @@ ImageButton o2button;
         lungcapacitybutton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 
-                // Start NewActivity.class
+                // Start heartactivity.class
                 Intent myIntent = new Intent(MainActivity.this,
-                        lungbutton.class);
+                        lungactivity.class);
                 startActivity(myIntent);
             }
         });
@@ -48,20 +47,20 @@ ImageButton o2button;
         o2button.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 
-                // Start NewActivity.class
+                // Start heartactivity.class
                 Intent myIntent = new Intent(MainActivity.this,
-                        o2button.class);
+                        o2activity.class);
                 startActivity(myIntent);
             }
         });
-        //alibutton=(ImageButton) findViewById(R.id.alibutton);
+        //halithosis=(ImageButton) findViewById(R.id.halithosis);
         // Capture button clicks
-        //alibutton.setOnClickListener(new OnClickListener() {
+        //halithosis.setOnClickListener(new OnClickListener() {
            // public void onClick(View arg0) {
 
-                // Start NewActivity.class
+                // Start heartactivity.class
                 //Intent myIntent = new Intent(MainActivity.this,
-                     //   alibutton.class);
+                     //   halithosis.class);
                 //startActivity(myIntent);
            // }
       //  });
@@ -70,9 +69,9 @@ ImageButton o2button;
         no2button.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 
-                // Start NewActivity.class
+                // Start heartactivity.class
                 Intent myIntent = new Intent(MainActivity.this,
-                        no2button.class);
+                        no2activity.class);
                 startActivity(myIntent);
             }
         });

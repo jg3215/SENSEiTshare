@@ -4,12 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class alibutton extends AppCompatActivity {
+public class halithosisactivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.alibutton);
+        setContentView(R.layout.halithosis);
         TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
         StringBuilder stringBuilder = new StringBuilder();
 

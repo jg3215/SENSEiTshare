@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class signinbutton extends AppCompatActivity {
+public class signinactivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signinbutton);
+        setContentView(R.layout.signin);
     }
     public void welcome(View v)
     {

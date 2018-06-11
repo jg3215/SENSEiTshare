@@ -21,22 +21,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewActivity"
+            android:name=".heartactivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".lungbutton"
+            android:name=".lungactivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".o2button"
+        <activity android:name=".o2activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".alibutton"
+        <activity android:name=".halithosisactivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".no2button"
+        <activity android:name=".no2activity"
             android:screenOrientation="portrait" />
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".loginbutton"
             android:screenOrientation="portrait" />
-        <activity android:name=".signinbutton"
+        <activity android:name=".signinactivity"
             android:screenOrientation="portrait" />
         <activity android:name=".welcome"
             android:screenOrientation="portrait" />
