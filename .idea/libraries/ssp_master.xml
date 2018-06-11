@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ssp-master">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/SenseiT/ssp-master.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
