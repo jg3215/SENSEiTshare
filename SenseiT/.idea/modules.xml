@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SenseiT.iml" filepath="$PROJECT_DIR$/SenseiT.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SenseiT - Copy.iml" filepath="$PROJECT_DIR$/SenseiT - Copy.iml" />
+      <module fileurl="file://C:\Users\costa\Documents\GitHub\SENSEiTshare\SenseiT\SenseiT - Copy.iml" filepath="C:\Users\costa\Documents\GitHub\SENSEiTshare\SenseiT\SenseiT - Copy.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\costa\Documents\GitHub\SENSEiTshare\SenseiT\app\app.iml" filepath="C:\Users\costa\Documents\GitHub\SENSEiTshare\SenseiT\app\app.iml" />
     </modules>
   </component>
 </project>
