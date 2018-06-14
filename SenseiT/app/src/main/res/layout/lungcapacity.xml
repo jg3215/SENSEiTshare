@@ -19,6 +19,7 @@
             android:layout_height="@dimen/_60sdp"
             android:text="Lung Capacity"
             android:textAlignment="center"
+            android:fontFamily="@font/avenirltstd_light"
             android:textColor="@android:color/holo_blue_light"
             android:textSize="@dimen/_30ssp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -28,19 +29,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_75sdp"
+        android:layout_height="@dimen/_40sdp"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/bluestartbutton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.26"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
             android:adjustViewBounds="false"
-            android:backgroundTint="@android:color/background_light"
+            android:background="@null"
+            android:onClick="connectblueheartclick"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/connectblue" />
+            app:srcCompat="@drawable/instructblue" />
 
 
     </LinearLayout>
@@ -49,6 +52,7 @@
         android:id="@+id/imageView8"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_178sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/lung" />
 
@@ -59,6 +63,7 @@
 
         <TextView
             android:id="@+id/textView3"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Liters: X.XXL"

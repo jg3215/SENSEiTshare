@@ -33,9 +33,6 @@
             android:name=".o2activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".halithosisactivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".no2activity"
             android:screenOrientation="portrait" />
         <activity
