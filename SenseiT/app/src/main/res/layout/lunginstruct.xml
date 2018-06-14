@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Lung Capacity"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/_30ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="visible"
+            android:fontFamily="@font/avenirltstd_light"/>
+
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/messageWindow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_350sdp"
+            android:textAlignment="center"
+            android:text="Measurement instructions:\n\n1. Before the measurement:\n Make sure there are no loud noises in your surroundings. Take a deep breath and hold it in, then put your mouth around the mouthpiece, press and hold the button on the device and and blow as hard as possible.\n\n2. During the measurement:\nKeep holding the button down until you have breathed out all of your air, and do not breathe in through your nose.\n\n3. After the measurement:\nOnce you have breathed out all of your air, stop pressing the button."
+            android:textSize="@dimen/_16ssp"
+            android:fontFamily="@font/avenirltstd_light"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"/>
+
+
+        <ImageButton
+            android:id="@+id/redstartbutton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_41sdp"
+            android:layout_below="@+id/messageWindow"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="false"
+            android:background="@null"
+            android:onClick="connectblueheartclick"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/startblue" />
+
+
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
+
