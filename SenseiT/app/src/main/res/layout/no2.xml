@@ -18,7 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_66sdp"
             android:text="Nitric Oxide"
+            android:layout_marginTop="@dimen/_10sdp"
             android:textAlignment="center"
+            android:fontFamily="@font/avenirltstd_light"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@android:color/holo_purple"
             android:textSize="@dimen/_30ssp"
@@ -28,21 +30,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_75sdp"
+        android:layout_height="@dimen/_55sdp"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/purplestartbutton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.26"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
             android:adjustViewBounds="false"
-            android:backgroundTint="@android:color/background_light"
-            android:elevation="0dp"
+            android:background="@null"
+            android:onClick="connectblueheartclick"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/connectpurple" />
-
+            app:srcCompat="@drawable/instructpurple" />
 
     </LinearLayout>
 
@@ -63,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="83dp"
             android:text="Ppb:XXX"
+            android:fontFamily="@font/avenirltstd_light"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="@dimen/_30ssp" />
