@@ -159,10 +159,10 @@ public class MainActivity extends AppCompatActivity {
               //  Toast.makeText(getBaseContext(), "Directory exists!", Toast.LENGTH_SHORT).show();
             FileWriter outstream = null;
                 try {
-                    file.createNewFile();
+                   // file.createNewFile();
                     //File tosave = new File(folderino.getAbsolutePath(),filename);
                     //tosave.createNewFile();
-                    outstream = new FileWriter(file);
+                    outstream = new FileWriter(file,true);
                    // BufferedWriter bufferwrite = new BufferedWriter(outstream);
                     outstream.write(data);
                     //outstream.flush();
@@ -207,13 +207,6 @@ public class MainActivity extends AppCompatActivity {
     public void viewdataclick (View v){
 
     }
-
-
-   // @Override
-   // public boolean onCreateOptionsMenu(Menu menu) {
-      //  getMenuInflater().inflate(R.menu.activity_main, menu);
-       // return true;
-   //
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent Data) {

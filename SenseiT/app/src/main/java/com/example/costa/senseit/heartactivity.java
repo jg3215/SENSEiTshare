@@ -39,7 +39,7 @@ public class heartactivity extends AppCompatActivity {
     public void connectblueheartclick(View v)
     {
         TextView textView3 = (TextView) findViewById(R.id.textView3);
-        processdata("heart.txt");
+        processdata("heartraw.txt");
         if(bpm!=0){ //Means data was calculated well
             String tesss = "BPM: " + getbpm() + " SPO2: " + getspo2();
             textView3.setText(tesss);
@@ -49,7 +49,7 @@ public class heartactivity extends AppCompatActivity {
         }
     }
 
-   public void processdata(String fileName) {
+    public void processdata(String fileName) {
        File directory = getExternalFilesDir("/Data/");
        if(directory.exists()) {
            String filepath = directory.getAbsolutePath()+"/"+fileName;
