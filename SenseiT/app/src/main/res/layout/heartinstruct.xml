@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Heart Rate"
+            android:textAlignment="center"
+            android:textColor="?attr/colorControlActivated"
+            android:textSize="@dimen/_30ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="visible"
+            android:fontFamily="@font/avenirltstd_light"/>
+
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/messageWindow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_350sdp"
+            android:textAlignment="center"
+            android:text="Measurement instructions:\n\n1. Before the measurement:\n Make sure to know where the heart rate sensor is located. \n\n2. During the measurement:\nPlace your finger on top of the sensor and press gently.\n\n3. After the measurement:\nMove your finger from the sensor."
+            android:textSize="@dimen/_16ssp"
+            android:fontFamily="@font/avenirltstd_light"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"/>
+
+
+        <ImageButton
+            android:id="@+id/redstartbutton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_41sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="31dp"
+            android:adjustViewBounds="false"
+            android:background="@null"
+            android:onClick="connectblueheartclick"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/startred" />
+
+
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
+

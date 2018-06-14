@@ -32,11 +32,13 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/createnewprofbutton"
-            android:layout_alignBottom="@+id/createnewprofbutton"
-            android:layout_alignStart="@+id/imageView3"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:onClick="chooseprofileclick"
             android:text="Choose\nProfile"
+            android:layout_marginBottom="@dimen/_36sdp"
+            android:layout_marginLeft="@dimen/_37sdp"
+            android:fontFamily="@font/avenirltstd_light"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@android:color/white"
             android:textSize="25sp" />
@@ -47,12 +49,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="36dp"
-            android:layout_marginStart="35dp"
-            android:layout_toEndOf="@+id/chooseprofilebutton"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/_36sdp"
+            android:layout_marginRight="@dimen/_20sdp"
             android:onClick="createnewprofileclick"
             android:text="Create New\nProfile"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:fontFamily="@font/avenirltstd_light"
             android:textColor="@android:color/white"
             android:textSize="25sp" />
 
@@ -63,11 +66,12 @@
             android:layout_above="@+id/chooseprofilebutton"
             android:layout_alignEnd="@+id/imageView3"
             android:layout_alignStart="@+id/imageView3"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/_26sdp"
             android:text="Welcome!"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/white"
+            android:fontFamily="@font/avenirltstd_light"
             android:textSize="@dimen/_30ssp" />
 
     </RelativeLayout>
