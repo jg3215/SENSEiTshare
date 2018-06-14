@@ -18,8 +18,8 @@ import java.util.Objects;
 
 public class heartactivity extends AppCompatActivity {
 
-    public int bpm;
-    public int spo2;
+    public int bpm = 0;
+    public int spo2 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,47 +38,49 @@ public class heartactivity extends AppCompatActivity {
 
     public void connectblueheartclick(View v)
     {
-        Toast.makeText(getBaseContext(), "Button works!", Toast.LENGTH_SHORT).show();
         TextView textView3 = (TextView) findViewById(R.id.textView3);
-        File directory = getExternalFilesDir("/Data/");
-        Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-        if(directory.exists()) {
-            Toast.makeText(getBaseContext(), "Directory exists!", Toast.LENGTH_SHORT).show();
-            String file = directory.getAbsolutePath()+"heart.txt";
-            //processdata(file);
-            String tesss = "BPM: "+getbpm()+" SPO2: "+getspo2();
+        processdata("heart.txt");
+        if(bpm!=0){ //Means data was calculated well
+            String tesss = "BPM: " + getbpm() + " SPO2: " + getspo2();
             textView3.setText(tesss);
         }
         else{
-            Toast.makeText(getBaseContext(), "Directory doesnt exist!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Couldnt Process Data!", Toast.LENGTH_SHORT).show();
         }
-        //Intent intent = new Intent(getApplicationContext(),connectblueheart.class);
-        //startActivity(intent);
-
     }
 
-    public void processdata(String fileName) {
+   public void processdata(String fileName) {
+       File directory = getExternalFilesDir("/Data/");
+       if(directory.exists()) {
+           String filepath = directory.getAbsolutePath()+"/"+fileName;
+           ArrayList<Integer> IRvalues = Readfromfile("IR", filepath);
+           ArrayList<Integer> REDvalues = Readfromfile("RED", filepath);
 
-        //Read Raw Data Values from file
-        ArrayList<Integer> IRvalues = Readfromfile("IR", fileName);
-        ArrayList<Integer> REDvalues = Readfromfile("RED", fileName);
+           if(!IRvalues.isEmpty()) {
+               //Perform DC filtering  - removing of the DC component
+               ArrayList<Integer> IRwithoutDC = DCremoval(IRvalues);
+               ArrayList<Integer> REDwithoutDC = DCremoval(REDvalues);
 
-        //Perform DC filtering  - removing of the DC component
-        ArrayList<Integer> IRwithoutDC = DCremoval(IRvalues);
-        ArrayList<Integer> REDwithoutDC = DCremoval(REDvalues);
+               //Part to Calculate SPO2
+               spo2 = SPO2(IRwithoutDC, REDwithoutDC);
+               //setspo2(lung);
 
-        //Part to Calculate SPO2
-        spo2 = SPO2(IRwithoutDC,REDwithoutDC);
-        //setspo2(lung);
+               //Moving Average Filtering of IR data
+               ArrayList<Integer> IRnoDCMAF = MAF(IRwithoutDC, 15);
 
-        //Moving Average Filtering of IR data
-        ArrayList<Integer> IRnoDCMAF = MAF(IRwithoutDC,15);
+               //LowPass filtering (fc = 4kHz) of IR data
+               ArrayList<Integer> IRfiltered = LowPass(IRnoDCMAF);
 
-        //LowPass filtering (fc = 4kHz) of IR data
-        ArrayList<Integer> IRfiltered = LowPass(IRnoDCMAF);
-
-        //BPM Calculation
-        bpm = BPM(IRfiltered);
+               //BPM Calculation
+               bpm = BPM(IRfiltered);
+           }
+           else{
+               Toast.makeText(getBaseContext(), "File isn't there!!", Toast.LENGTH_SHORT).show();
+           }
+       }
+       else{
+           Toast.makeText(getBaseContext(), "Directory doesnt exist!", Toast.LENGTH_SHORT).show();
+       }
     }
 
     public String getbpm(){
@@ -113,6 +115,7 @@ public class heartactivity extends AppCompatActivity {
         catch(FileNotFoundException e) {
             //System.out.println("Unable to open file '" + fileName + "'");
             Log.e("Exception", "File read failed: " + e.toString());
+            Toast.makeText(getBaseContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
 
 
         }
@@ -120,6 +123,7 @@ public class heartactivity extends AppCompatActivity {
             // System.out.println(
             //    "Error reading file '" + fileName + "'");
             Log.e("Exception", "File read failed: " + e.toString());
+           // Toast.makeText(getBaseContext(), "File read failed!", Toast.LENGTH_SHORT).show();
         }
 
         if(Objects.equals(Sensor, "IR")){
