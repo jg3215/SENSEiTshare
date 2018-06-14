@@ -78,7 +78,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:fontFamily="@font/AvenirLTStd-Light"
+            android:fontFamily="@font/avenirltstd_light"
             />
 
         <TextView
@@ -92,7 +92,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:fontFamily="@font/AvenirLTStd-Light" />
+            android:fontFamily="@font/avenirltstd_light" />
 
         <TextView
             android:id="@+id/textView7"
@@ -105,7 +105,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:fontFamily="@font/AvenirLTStd-Light" />
+            android:fontFamily="@font/avenirltstd_light" />
 
         <TextView
             android:id="@+id/textView8"
@@ -118,7 +118,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:fontFamily="@font/AvenirLTStd-Light" />
+            android:fontFamily="@font/avenirltstd_light" />
 
         <TextView
             android:id="@+id/textView9"
@@ -131,7 +131,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_20ssp"
-            android:fontFamily="@font/AvenirLTStd-Light"
+            android:fontFamily="@font/avenirltstd_light"
             android:textStyle="bold"/>
 
         <Button
@@ -143,7 +143,7 @@
             android:layout_marginBottom="@dimen/_73sdp"
             android:onClick="viewdataclick"
             android:text="View Data History"
-            android:fontFamily="@font/AvenirLTStd-Light"
+            android:fontFamily="@font/avenirltstd_light"
             android:textStyle="bold"/>
 
     </RelativeLayout>

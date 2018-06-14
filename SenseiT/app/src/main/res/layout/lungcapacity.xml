@@ -19,7 +19,6 @@
             android:layout_height="@dimen/_60sdp"
             android:text="Lung Capacity"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@android:color/holo_blue_light"
             android:textSize="@dimen/_30ssp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -40,7 +39,6 @@
             android:layout_weight="1.26"
             android:adjustViewBounds="false"
             android:backgroundTint="@android:color/background_light"
-            android:elevation="0dp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/connectblue" />
 
@@ -66,7 +64,7 @@
             android:text="Liters: X.XXL"
             android:textAlignment="center"
             android:textSize="@dimen/_30ssp"
-            android:fontFamily="@font/AvenirLTStd-Light"/>
+            android:fontFamily="@font/avenirltstd_light"/>
 
     </LinearLayout>
 
@@ -88,7 +86,7 @@
                 android:layout_height="match_parent"
                 android:textAlignment="center"
                 android:textSize="@dimen/_12ssp"
-                android:fontFamily="@font/AvenirLTStd-Light"
+                android:fontFamily="@font/avenirltstd_light"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
