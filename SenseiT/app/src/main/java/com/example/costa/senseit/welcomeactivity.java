@@ -5,23 +5,23 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 
-public class login extends AppCompatActivity {
+public class welcomeactivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.welcome);
 
     }
-    public void loginbuttonclick(View v)
+    public void chooseprofileclick(View v)
     {
-        Intent intent = new Intent(getApplicationContext(), loginbutton.class);
+        Intent intent = new Intent(getApplicationContext(), chooseprofileactivity.class);
         startActivity(intent);
     }
 
-    public void signinbuttonclick(View v)
+    public void createnewprofileclick(View v)
     {
-        Intent intent = new Intent(getApplicationContext(), signinactivity.class);
+        Intent intent = new Intent(getApplicationContext(), createprofileactivity.class);
         startActivity(intent);
     }
 

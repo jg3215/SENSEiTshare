@@ -5,14 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class welcome extends AppCompatActivity {
+public class createprofileactivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome);
+        setContentView(R.layout.createprofile);
     }
-    public void gotomenu(View v)
+    public void crprclick(View v)
     {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);

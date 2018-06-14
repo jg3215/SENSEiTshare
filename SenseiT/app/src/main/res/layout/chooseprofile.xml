@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.costa.senseit.loginbutton">
+    tools:context="com.example.costa.senseit.chooseprofileactivity">
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="113dp"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="94dp" />
 </android.support.constraint.ConstraintLayout>

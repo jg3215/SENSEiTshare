@@ -26,7 +26,7 @@ public class o2activity extends AppCompatActivity {
     }
     public void bluetoothclick(View v)
     {
-        Intent intent = new Intent(getApplicationContext(),findDevice.class);
-        startActivity(intent);
+       // Intent intent = new Intent(getApplicationContext(),bluetooth.class);
+       // startActivity(intent);
     }
 }

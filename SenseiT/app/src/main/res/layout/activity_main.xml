@@ -4,101 +4,143 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:background="@drawable/gradient"
+    android:orientation="vertical">
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.33"
-        android:background="@drawable/gradient"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/o2button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignStart="@+id/heartratebutton"
+            android:layout_below="@+id/heartratebutton"
+            android:layout_marginTop="37dp"
+            android:background="@drawable/o2button"
+            android:onClick="o2click" />
+
+        <Button
+            android:id="@+id/lungcapacitybutton"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignBottom="@+id/heartratebutton"
+            android:layout_alignEnd="@+id/no2button"
+            android:layout_alignTop="@+id/heartratebutton"
+            android:layout_marginStart="28dp"
+            android:layout_toEndOf="@+id/heartratebutton"
+            android:background="@drawable/lungbutton"
+            android:onClick="lungcapacityclick" />
+
+        <Button
+            android:id="@+id/heartratebutton"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/bluetoothstatus"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="119dp"
+            android:background="@drawable/heartratebutton"
+            android:onClick="heartrateclick" />
+
+        <Button
+            android:id="@+id/no2button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignBottom="@+id/o2button"
+            android:layout_marginStart="29dp"
+            android:layout_toEndOf="@+id/o2button"
+            android:background="@drawable/no2button"
+            android:onClick="no2click" />
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="335dp"
-            android:layout_height="93dp"
-            android:text="Main Menu"
+            android:id="@+id/bluetoothstatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:text="BluetoothStatus"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat"
+            tools:layout_editor_absoluteX="165dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/heartratebutton"
+            android:layout_alignStart="@+id/heartratebutton"
+            android:layout_below="@+id/heartratebutton"
+            android:text="Heart Rate"
+            android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_45ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.612"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.057"
-            tools:layout_editor_absoluteX="16dp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/heartratebutton"
-            android:layout_width="@dimen/_135sdp"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:layout_marginLeft="@dimen/_17sdp"
-            android:layout_marginTop="@dimen/_124sdp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/heartratebutton"
-            android:background="@null"/>
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/lungcapacitybutton"
+            android:layout_alignStart="@+id/lungcapacitybutton"
+            android:layout_below="@+id/lungcapacitybutton"
+            android:text="Lung Capacity"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/lungcapacitybutton"
-            android:layout_width="@dimen/_135sdp"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:layout_marginRight ="21dp"
-            android:layout_marginTop="@dimen/_124sdp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/lungbutton"
-            android:background="@null"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/o2button"
+            android:layout_alignStart="@+id/textView5"
+            android:layout_below="@+id/o2button"
+            android:text="Blood Oxygen"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/o2button"
-            android:layout_width="@dimen/_135sdp"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft ="@dimen/_17sdp"
-            android:layout_marginTop="@dimen/_124sdp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.796"
-            app:srcCompat="@drawable/o2button"
-            android:background="@null"/>
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/no2button"
+            android:layout_alignStart="@+id/textView6"
+            android:layout_below="@+id/o2button"
+            android:text="Nitric Oxide"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/no2button"
-            android:layout_width="@dimen/_135sdp"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_marginBottom="@dimen/_26sdp"
-            android:layout_marginRight ="@dimen/_17sdp"
-            android:layout_marginTop="@dimen/_124sdp"
-            android:scaleType="fitXY"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:srcCompat="@drawable/no2button"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.877"
-            android:background="@null"/>
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/lungcapacitybutton"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="31dp"
+            android:text="Please choose one of the parameters to measure:"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    </android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/button11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView7"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="28dp"
+            android:onClick="viewdataclick"
+            android:text="View Data History" />
+
+    </RelativeLayout>
 
 </LinearLayout>

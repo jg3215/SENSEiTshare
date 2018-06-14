@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.costa.senseit">
+
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".login"
+            android:name=".welcomeactivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,28 +25,29 @@
         </activity>
         <activity
             android:name=".heartactivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".lungactivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".o2activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".halithosisactivity"
+        <activity
+            android:name=".o2activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".no2activity"
+        <activity
+            android:name=".halithosisactivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".no2activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".loginbutton"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".signinactivity"
+        <activity
+            android:name=".createprofileactivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".welcome"
+        <activity
+            android:name=".connectblueheart"
             android:screenOrientation="portrait" />
-        <activity android:name=".connectblueheart"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".findDevice"
-            android:screenOrientation="portrait" />
+        <activity android:name=".chooseprofileactivity"></activity>
     </application>
 
 </manifest>
