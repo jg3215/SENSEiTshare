@@ -39,8 +39,8 @@
             android:layout_height="120dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/bluetoothstatus"
-            android:layout_marginStart="52dp"
-            android:layout_marginTop="119dp"
+            android:layout_marginStart="@dimen/_54sdp"
+            android:layout_marginTop="@dimen/_100sdp"
             android:background="@drawable/heartratebutton"
             android:onClick="heartrateclick" />
 
@@ -63,6 +63,7 @@
             android:layout_weight="1"
             android:text="BluetoothStatus"
             android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_dark"
             tools:layout_editor_absoluteX="165dp"
             tools:layout_editor_absoluteY="101dp" />
 
@@ -77,7 +78,8 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/AvenirLTStd-Light"
+            />
 
         <TextView
             android:id="@+id/textView6"
@@ -90,7 +92,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/AvenirLTStd-Light" />
 
         <TextView
             android:id="@+id/textView7"
@@ -103,7 +105,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/AvenirLTStd-Light" />
 
         <TextView
             android:id="@+id/textView8"
@@ -116,7 +118,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/AvenirLTStd-Light" />
 
         <TextView
             android:id="@+id/textView9"
@@ -128,18 +130,21 @@
             android:text="Please choose one of the parameters to measure:"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_20ssp"
+            android:fontFamily="@font/AvenirLTStd-Light"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/button11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView7"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="28dp"
+            android:layout_marginBottom="@dimen/_73sdp"
             android:onClick="viewdataclick"
-            android:text="View Data History" />
+            android:text="View Data History"
+            android:fontFamily="@font/AvenirLTStd-Light"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 
