@@ -3,11 +3,9 @@ package com.example.costa.senseit;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -17,12 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.Set;
 import java.util.UUID;
 
@@ -117,18 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }.start();
-
-        //halithosis=(ImageButton) findViewById(R.id.halithosis);
-        // Capture button clicks
-        //halithosis.setOnClickListener(new OnClickListener() {
-        // public void onClick(View arg0) {
-
-        // Start heartactivity.class
-        //Intent myIntent = new Intent(MainActivity.this,
-        //   halithosis.class);
-        //startActivity(myIntent);
-        // }
-        //  });
     }
 
     public boolean isExternalStorageWritable() {
@@ -159,15 +143,9 @@ public class MainActivity extends AppCompatActivity {
               //  Toast.makeText(getBaseContext(), "Directory exists!", Toast.LENGTH_SHORT).show();
             FileWriter outstream = null;
                 try {
-                   // file.createNewFile();
-                    //File tosave = new File(folderino.getAbsolutePath(),filename);
-                    //tosave.createNewFile();
                     outstream = new FileWriter(file,true);
-                   // BufferedWriter bufferwrite = new BufferedWriter(outstream);
                     outstream.write(data);
-                    //outstream.flush();
                     outstream.close();
-                   // Toast.makeText(getBaseContext(), "Data written to device", Toast.LENGTH_SHORT).show();
 
                 } catch (IOException e) {
                     Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
@@ -216,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
            if (resultCode == RESULT_OK) {
                // The user picked a contact.
                // The Intent's data Uri identifies which contact was selected.
-               //bluetoothstatus.setText("Enabled");
                Toast.makeText(getApplicationContext(), "Bluetooth turned on", Toast.LENGTH_SHORT).show();
            } else
                Toast.makeText(getBaseContext(), "Please Enable Bluetooth", Toast.LENGTH_SHORT).show();
@@ -260,13 +237,6 @@ public class MainActivity extends AppCompatActivity {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
                     if (bytes != 0) {
-                   //    SystemClock.sleep(100);
-                      // mmInStream.read(buffer);
-                        // Send the obtained bytes to the UI activity
-                      //  String readMessage = new String((buffer),"UTF-8");
-                       // Message msge = Message.obtain();
-                       // msge.obj = readMessage;
-
                         String strReceived = new String(buffer, 0, bytes);
                         final String msgReceived = strReceived;
                         Message msge = Message.obtain();
