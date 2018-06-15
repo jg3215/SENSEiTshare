@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -65,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
                 if (msg.what == MESSAGE_READ) {
                     String readMessage = null;
                     try {
-                        readMessage = new String((byte[]) msg.obj, "UTF-8");
-                        bluetoothstatus.setText("Receiving data");
-                        writeToFile(readMessage);
-
-                    } catch (UnsupportedEncodingException e) {
+                       // readMessage = new String((byte[]) msg.obj, "UTF-8");
+                        String messageread = (String) msg.obj;
+                        bluetoothstatus.setText("Received data");
+                        writeToFile(messageread);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -166,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                     outstream.write(data);
                     //outstream.flush();
                     outstream.close();
-                    Toast.makeText(getBaseContext(), "Data written to device", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getBaseContext(), "Data written to device", Toast.LENGTH_SHORT).show();
 
                 } catch (IOException e) {
                     Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void heartrateclick (View v){
         Intent myIntent = new Intent(MainActivity.this,
-                heartactivity.class);
+                heartinstructions.class);
         startActivity(myIntent);
     }
 
@@ -259,13 +260,22 @@ public class MainActivity extends AppCompatActivity {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
                     if (bytes != 0) {
-                       //SystemClock.sleep(100);
-                       mmInStream.read(buffer);
-                    }
-                    // Send the obtained bytes to the UI activity
+                   //    SystemClock.sleep(100);
+                      // mmInStream.read(buffer);
+                        // Send the obtained bytes to the UI activity
+                      //  String readMessage = new String((buffer),"UTF-8");
+                       // Message msge = Message.obtain();
+                       // msge.obj = readMessage;
 
-                    mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
-                            .sendToTarget();
+                        String strReceived = new String(buffer, 0, bytes);
+                        final String msgReceived = strReceived;
+                        Message msge = Message.obtain();
+                        msge.obj = msgReceived;
+
+                        mHandler.obtainMessage(MESSAGE_READ, bytes, -1, msge.obj)
+                                .sendToTarget();
+                    }
+
                 } catch (IOException e) {
                     break;
                 }

@@ -42,7 +42,8 @@
             android:name=".createprofileactivity"
             android:screenOrientation="portrait" />
         <activity android:name=".chooseprofileactivity" />
-        <activity android:name=".heartinstructions"></activity>
+        <activity android:name=".heartinstructions" />
+        <activity android:name=".lunginstructions"></activity>
     </application>
 
 </manifest>
