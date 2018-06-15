@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void lungcapacityclick (View v){
         Intent myIntent = new Intent(MainActivity.this,
-                lungactivity.class);
+                lunginstructions.class);
         startActivity(myIntent);
     }
 

@@ -57,7 +57,7 @@
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="false"
             android:background="@null"
-            android:onClick="connectblueheartclick"
+            android:onClick="lungstart"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/startblue" />
 

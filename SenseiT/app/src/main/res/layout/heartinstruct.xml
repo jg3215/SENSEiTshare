@@ -58,7 +58,7 @@
             android:layout_marginBottom="31dp"
             android:adjustViewBounds="false"
             android:background="@null"
-            android:onClick="connectblueheartclick"
+            android:onClick="heartratestart"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/startred" />
 
