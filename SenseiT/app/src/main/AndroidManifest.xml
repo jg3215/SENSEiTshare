@@ -41,9 +41,6 @@
         <activity
             android:name=".createprofileactivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".connectblueheart"
-            android:screenOrientation="portrait" />
         <activity android:name=".chooseprofileactivity"></activity>
     </application>
 
