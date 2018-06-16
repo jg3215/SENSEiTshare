@@ -1,9 +1,14 @@
 package com.example.costa.senseit;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 public class lungactivity extends AppCompatActivity {
+
+    //public Handler LHandler = MainActivity.mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,5 +24,10 @@ public class lungactivity extends AppCompatActivity {
 
 
         mMessageWindow.setText(someMessage);
+    }
+
+    public void lungtoinstrclick (View v){
+        Intent intent = new Intent(getApplicationContext(), lunginstructions.class);
+        startActivity(intent);
     }
 }

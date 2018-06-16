@@ -44,6 +44,11 @@
         <activity android:name=".chooseprofileactivity" />
         <activity android:name=".heartinstructions" />
         <activity android:name=".lunginstructions"></activity>
+
+        <service android:enabled="true" android:name="com.example.costa.senseit.BluetoothService"/>
+
+
     </application>
+
 
 </manifest>

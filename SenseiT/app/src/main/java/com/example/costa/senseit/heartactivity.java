@@ -1,6 +1,9 @@
 package com.example.costa.senseit;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +26,7 @@ public class heartactivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heartrate);
 
@@ -36,17 +40,16 @@ public class heartactivity extends AppCompatActivity {
         mMessageWindow.setText(someMessage);
     }
 
-    public void connectblueheartclick(View v)
-    {
+    public void connectblueheartclick(View v) {
         TextView textView3 = (TextView) findViewById(R.id.textView3);
-        processdata("heartraw.txt");
+       /* processdata("heartraw.txt");
         if(bpm!=0){ //Means data was calculated well
             String tesss = "BPM: " + getbpm() + " SPO2: " + getspo2();
             textView3.setText(tesss);
         }
         else{
             Toast.makeText(getBaseContext(), "Couldnt Process Data!", Toast.LENGTH_SHORT).show();
-        }
+        } */
     }
 
     public void processdata(String fileName) {
