@@ -34,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void o2click (View v){
         Intent myIntent = new Intent(MainActivity.this,
-                o2activity.class);
+                o2instructions.class);
         startActivity(myIntent);
     }
 
     public void no2click (View v){
         Intent myIntent = new Intent(MainActivity.this,
-                no2activity.class);
+                no2instructions.class);
         startActivity(myIntent);
     }
     public void viewdataclick (View v){
