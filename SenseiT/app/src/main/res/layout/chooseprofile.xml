@@ -1,16 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.costa.senseit.chooseprofileactivity">
+    android:background="@drawable/gradient"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="113dp"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="94dp" />
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/user3button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignStart="@+id/user1button"
+            android:layout_below="@+id/user1button"
+            android:layout_marginTop="37dp"
+            android:background="@android:color/holo_red_light"
+             />
+
+        <Button
+            android:id="@+id/user2button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignBottom="@+id/user1button"
+            android:layout_alignEnd="@+id/user4button"
+            android:layout_alignTop="@+id/user1button"
+            android:layout_marginStart="28dp"
+            android:layout_toEndOf="@+id/user1button"
+            android:background="@android:color/holo_green_light"
+            />
+
+        <Button
+            android:id="@+id/user1button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ChooseProfile"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="88dp"
+            android:background="@android:color/holo_orange_light" />
+
+        <Button
+            android:id="@+id/user4button"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignBottom="@+id/user3button"
+            android:layout_marginStart="29dp"
+            android:layout_toEndOf="@+id/user3button"
+            android:background="@android:color/holo_blue_dark"
+             />
+
+        <TextView
+            android:id="@+id/ChooseProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="56dp"
+            android:layout_weight="1"
+            android:text="Choose Profile"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            tools:layout_editor_absoluteX="300dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+        <TextView
+            android:id="@+id/text_user1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/user1button"
+            android:layout_alignStart="@+id/user1button"
+            android:layout_below="@+id/user1button"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/avenirltstd_light"
+            />
+
+        <TextView
+            android:id="@+id/text_user2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/user2button"
+            android:layout_alignStart="@+id/user2button"
+            android:layout_below="@+id/user2button"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/avenirltstd_light" />
+
+        <TextView
+            android:id="@+id/text_user3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/user3button"
+            android:layout_alignStart="@+id/text_user1"
+            android:layout_below="@+id/user3button"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/avenirltstd_light" />
+
+        <TextView
+            android:id="@+id/text_user4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/user4button"
+            android:layout_alignStart="@+id/text_user2"
+            android:layout_below="@+id/user3button"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/avenirltstd_light" />
+
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

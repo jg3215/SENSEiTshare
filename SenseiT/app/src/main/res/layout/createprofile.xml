@@ -75,7 +75,6 @@
             android:layout_above="@+id/profilebutton"
             android:layout_alignEnd="@+id/imageView3"
             android:layout_alignStart="@+id/imageView3"
-            android:layout_marginBottom="@dimen/_20sdp"
             android:inputType="textPersonName"
             android:textAlignment="textStart"
             android:textColor="@android:color/white"
