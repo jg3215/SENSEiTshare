@@ -18,9 +18,8 @@
             android:layout_alignStart="@+id/user1button"
             android:layout_below="@+id/user1button"
             android:layout_marginTop="37dp"
-            android:background="@android:color/holo_red_light"
-            android:onClick="user3button"
-             />
+            android:background="@drawable/user4"
+            android:onClick="user3button" />
 
         <Button
             android:id="@+id/user2button"
@@ -31,9 +30,8 @@
             android:layout_alignTop="@+id/user1button"
             android:layout_marginStart="28dp"
             android:layout_toEndOf="@+id/user1button"
-            android:background="@android:color/holo_green_light"
-            android:onClick="user2button"
-            />
+            android:background="@drawable/user1"
+            android:onClick="user2button" />
 
         <Button
             android:id="@+id/user1button"
@@ -41,10 +39,10 @@
             android:layout_height="120dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/ChooseProfile"
-            android:layout_marginStart="67dp"
-            android:layout_marginTop="88dp"
-            android:background="@android:color/holo_orange_light"
-            android:onClick="user1button"/>
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="71dp"
+            android:background="@drawable/user2"
+            android:onClick="user1button" />
 
         <Button
             android:id="@+id/user4button"
@@ -53,9 +51,8 @@
             android:layout_alignBottom="@+id/user3button"
             android:layout_marginStart="29dp"
             android:layout_toEndOf="@+id/user3button"
-            android:background="@android:color/holo_blue_dark"
-            android:onClick="user4button"
-             />
+            android:background="@drawable/user3"
+            android:onClick="user4button" />
 
 
         <TextView
@@ -67,6 +64,7 @@
             android:layout_marginTop="56dp"
             android:layout_weight="1"
             android:text="Choose Profile"
+            android:fontFamily="@font/avenirltstd_light"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="40sp"
@@ -80,11 +78,10 @@
             android:layout_alignEnd="@+id/user1button"
             android:layout_alignStart="@+id/user1button"
             android:layout_below="@+id/user1button"
+            android:fontFamily="@font/avenirltstd_light"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:fontFamily="@font/avenirltstd_light"
-            />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/text_user2"
@@ -93,10 +90,10 @@
             android:layout_alignEnd="@+id/user2button"
             android:layout_alignStart="@+id/user2button"
             android:layout_below="@+id/user2button"
+            android:fontFamily="@font/avenirltstd_light"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:fontFamily="@font/avenirltstd_light" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/text_user3"
@@ -105,10 +102,10 @@
             android:layout_alignEnd="@+id/user3button"
             android:layout_alignStart="@+id/text_user1"
             android:layout_below="@+id/user3button"
+            android:fontFamily="@font/avenirltstd_light"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:fontFamily="@font/avenirltstd_light" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/text_user4"
@@ -117,12 +114,10 @@
             android:layout_alignEnd="@+id/user4button"
             android:layout_alignStart="@+id/text_user2"
             android:layout_below="@+id/user3button"
+            android:fontFamily="@font/avenirltstd_light"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:fontFamily="@font/avenirltstd_light" />
-
-
+            android:textSize="18sp" />
 
 
     </RelativeLayout>
