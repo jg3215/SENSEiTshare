@@ -1,21 +1,19 @@
 package com.example.costa.senseit;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -23,6 +21,10 @@ public class heartactivity extends AppCompatActivity {
 
     public int bpm = 0;
     public int spo2 = 0;
+    boolean datacalculated = false;
+    //File directory = getExternalFilesDir("/Data/");
+    // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+    //File file = new File(directory, "rawdata.txt");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,29 +32,84 @@ public class heartactivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heartrate);
 
-        TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
-        StringBuilder stringBuilder = new StringBuilder();
-
-        String someMessage = " The average normal resting heart rate for adults is between 60 and 100 beats per minute\n" +
-                "(bpm). Heart rate increases with exercise and normal heart rate varies between individuals.\n ";
+        Intent mIntent = new Intent(this, BluetoothService.class);
+        startService(mIntent);
 
 
-        mMessageWindow.setText(someMessage);
+       // TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
+        //StringBuilder stringBuilder = new StringBuilder();
+
+        //String someMessage = " The average normal resting heart rate for adults is between 60 and 100 beats per minute\n" +
+       //         "(bpm). Heart rate increases with exercise and normal heart rate varies between individuals.\n ";
+
+
+      //  mMessageWindow.setText(someMessage);
+
+        new Thread() {
+            public void run() {
+                while (!datacalculated) {
+                    if (BluetoothService.DataReceived) {
+                       /*try{
+                            Thread.sleep(2000);
+                            }
+                            catch(InterruptedException e){
+                            } */
+                        String line = null;
+                        try {
+                            File directory = getExternalFilesDir("/Data/");
+                            File file = new File(directory,"rawdata.txt");
+                            FileReader fileReader = new FileReader(file);
+                            // Always wrap FileReader in BufferedReader.
+                            BufferedReader bufferedReader = new BufferedReader(fileReader);
+                            String text = null;
+                            while ((line = bufferedReader.readLine()) != null) {
+                                //IR and Red LED values are stored one after the other in one column so each line is a number and have read them in turn
+                                text = text + line;
+                            }
+                            bufferedReader.close(); //Closes file.
+                            TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
+                            mMessageWindow.setText(text);
+
+                            datacalculated = true;
+                        }catch (IOException e){
+                        }
+                    }
+                }
+                /*processdata("rawdata.txt");
+                if (bpm != 0) { //Means data was calculated
+                    File directory2 = getExternalFilesDir("/Profiles/");
+                    // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                    File file2 = new File(directory, "Artur.txt");
+                    try {
+                        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                        FileWriter outstream = new FileWriter(file, true);
+                        Date currentTime = Calendar.getInstance().getTime();
+                        outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
+                        outstream.close();
+                        datacalculated = true;
+                        TextView textView3 = (TextView) findViewById(R.id.textView3);
+                        textView3.setText("BPM: "+Integer.toString(bpm));
+                    } catch (IOException e) {
+                        Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
+                        Log.e("Exception", "File write failed: " + e.toString());
+                    }
+                }
+                        } catch (FileNotFoundException e) {
+                            //System.out.println("Unable to open file '" + fileName + "'");
+                            Log.e("Exception", "File read failed: " + e.toString());
+                            Toast.makeText(getBaseContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
+
+
+                        } catch (IOException e) {
+                            // System.out.println(
+                            //    "Error reading file '" + fileName + "'");
+                            Log.e("Exception", "File read failed: " + e.toString());
+                            // Toast.makeText(getBaseContext(), "File read failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    } */
+            }
+        }.start();
     }
-
-  /*  public void heartgotoinst (View v) {
-        Intent intent = new Intent(getApplicationContext(), heartinstructions.class);
-        startActivity(intent);
-        //TextView textView3 = (TextView) findViewById(R.id.textView3);
-       /* processdata("heartraw.txt");
-        if(bpm!=0){ //Means data was calculated well
-            String tesss = "BPM: " + getbpm();
-            textView3.setText(tesss);
-        }
-        else{
-            Toast.makeText(getBaseContext(), "Couldnt Process Data!", Toast.LENGTH_SHORT).show();
-        }
-    } */
 
     public void processdata(String fileName) {
        File directory = getExternalFilesDir("/Data/");

@@ -12,12 +12,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        Context context = getApplicationContext();
-        Intent mIntent = new Intent(this, BluetoothService.class);
-        startService(mIntent);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     public void heartrateclick (View v){
@@ -34,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void o2click (View v){
         Intent myIntent = new Intent(MainActivity.this,
-                o2activity.class);
+                o2instructions.class);
         startActivity(myIntent);
     }
 
     public void no2click (View v){
         Intent myIntent = new Intent(MainActivity.this,
-                no2activity.class);
+                no2instructions.class);
         startActivity(myIntent);
     }
     public void viewdataclick (View v){
