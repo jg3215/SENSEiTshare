@@ -1,6 +1,10 @@
 package com.example.costa.senseit;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,16 +19,14 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class heartactivity extends AppCompatActivity {
 
     public int bpm = 0;
     public int spo2 = 0;
-    boolean datacalculated = false;
-    //File directory = getExternalFilesDir("/Data/");
-    // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-    //File file = new File(directory, "rawdata.txt");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,81 +37,44 @@ public class heartactivity extends AppCompatActivity {
         Intent mIntent = new Intent(this, BluetoothService.class);
         startService(mIntent);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("raw data written to file"));
 
-       // TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
-        //StringBuilder stringBuilder = new StringBuilder();
+        TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
 
-        //String someMessage = " The average normal resting heart rate for adults is between 60 and 100 beats per minute\n" +
-       //         "(bpm). Heart rate increases with exercise and normal heart rate varies between individuals.\n ";
-
-
-      //  mMessageWindow.setText(someMessage);
-
-        new Thread() {
-            public void run() {
-                while (!datacalculated) {
-                    if (BluetoothService.DataReceived) {
-                       /*try{
-                            Thread.sleep(2000);
-                            }
-                            catch(InterruptedException e){
-                            } */
-                        String line = null;
-                        try {
-                            File directory = getExternalFilesDir("/Data/");
-                            File file = new File(directory,"rawdata.txt");
-                            FileReader fileReader = new FileReader(file);
-                            // Always wrap FileReader in BufferedReader.
-                            BufferedReader bufferedReader = new BufferedReader(fileReader);
-                            String text = null;
-                            while ((line = bufferedReader.readLine()) != null) {
-                                //IR and Red LED values are stored one after the other in one column so each line is a number and have read them in turn
-                                text = text + line;
-                            }
-                            bufferedReader.close(); //Closes file.
-                            TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
-                            mMessageWindow.setText(text);
-
-                            datacalculated = true;
-                        }catch (IOException e){
-                        }
-                    }
-                }
-                /*processdata("rawdata.txt");
-                if (bpm != 0) { //Means data was calculated
-                    File directory2 = getExternalFilesDir("/Profiles/");
-                    // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                    File file2 = new File(directory, "Artur.txt");
-                    try {
-                        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                        FileWriter outstream = new FileWriter(file, true);
-                        Date currentTime = Calendar.getInstance().getTime();
-                        outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
-                        outstream.close();
-                        datacalculated = true;
-                        TextView textView3 = (TextView) findViewById(R.id.textView3);
-                        textView3.setText("BPM: "+Integer.toString(bpm));
-                    } catch (IOException e) {
-                        Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
-                        Log.e("Exception", "File write failed: " + e.toString());
-                    }
-                }
-                        } catch (FileNotFoundException e) {
-                            //System.out.println("Unable to open file '" + fileName + "'");
-                            Log.e("Exception", "File read failed: " + e.toString());
-                            Toast.makeText(getBaseContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
+        String someMessage = " The average normal resting heart rate for adults is between 60 and 100 beats per minute\n" +
+                "(bpm). Heart rate increases with exercise and normal heart rate varies between individuals.\n ";
 
 
-                        } catch (IOException e) {
-                            // System.out.println(
-                            //    "Error reading file '" + fileName + "'");
-                            Log.e("Exception", "File read failed: " + e.toString());
-                            // Toast.makeText(getBaseContext(), "File read failed!", Toast.LENGTH_SHORT).show();
-                        }
-                    } */
-            }
-        }.start();
+        mMessageWindow.setText(someMessage);
     }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            File directory = getExternalFilesDir("/Data/");
+            File file = new File(directory,"rawdata.txt");
+            processdata("rawdata.txt");
+            if (bpm != 0) { //Means data was calculated
+                File directory2 = getExternalFilesDir("/Profiles/");
+                // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                File file2 = new File(directory, "Artur.txt");
+                try {
+                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    FileWriter outstream = new FileWriter(file, true);
+                    Date currentTime = Calendar.getInstance().getTime();
+                    outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
+                    outstream.close();
+                    TextView textView3 = (TextView) findViewById(R.id.textView3);
+                    textView3.setText("BPM: "+Integer.toString(bpm));
+                } catch (IOException e) {
+                    Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
+                    Log.e("Exception", "File write failed: " + e.toString());
+                }
+            }
+        }
+    };
 
     public void processdata(String fileName) {
        File directory = getExternalFilesDir("/Data/");

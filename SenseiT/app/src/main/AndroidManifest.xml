@@ -41,9 +41,16 @@
         <activity
             android:name=".createprofileactivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".no2instructions"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".o2instructions"
+            android:screenOrientation="portrait" />
         <activity android:name=".chooseprofileactivity" />
         <activity android:name=".heartinstructions" />
-        <activity android:name=".lunginstructions"></activity>
+        <activity android:name=".lunginstructions" />
+
 
         <service android:enabled="true" android:name="com.example.costa.senseit.BluetoothService"/>
 
