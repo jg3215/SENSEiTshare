@@ -43,10 +43,10 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="BPM: XX"
+            android:fontFamily="@font/avenirltstd_light"
+            android:text="Waiting for data"
             android:textAlignment="center"
-            android:textSize="@dimen/_30ssp"
-            android:fontFamily="@font/avenirltstd_light"/>
+            android:textSize="@dimen/_30ssp" />
 
     </LinearLayout>
 
