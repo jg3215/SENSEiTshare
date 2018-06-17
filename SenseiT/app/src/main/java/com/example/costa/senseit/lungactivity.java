@@ -59,10 +59,10 @@ public class lungactivity extends AppCompatActivity {
                     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
                     FileWriter outstream = new FileWriter(file, true);
                     Date currentTime = Calendar.getInstance().getTime();
-                    outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
+                    outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(heartactivity.bpm) + " SPO2: " + Integer.toString(heartactivity.spo2) + "\n");
                     outstream.close();
                     TextView textView3 = (TextView) findViewById(R.id.textView3);
-                    textView3.setText("BPM: "+Integer.toString(bpm));
+                    textView3.setText("BPM: "+Integer.toString(heartactivity.bpm));
                 } catch (IOException e) {
                     Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
                     Log.e("Exception", "File write failed: " + e.toString());
