@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,7 +22,7 @@ import java.util.UUID;
 
 public class BluetoothService extends Service {
 
-    public static boolean DataReceived = false;
+    public static boolean rawdatawritten = false;
     public ConnectedThread mConnectedThread; // bluetooth background worker thread to send and receive data
     public Handler mHandler; // Our main handler that will receive callback notifications
     private BluetoothSocket mBTSocket = null; // bi-directional client-to-client data path
@@ -181,8 +182,16 @@ public class BluetoothService extends Service {
                 Toast.makeText(getBaseContext(), "ExternalStorageNOTAvailable", Toast.LENGTH_SHORT).show();
             }
         }else{
-            DataReceived = true;
+            sendMessage();
+           // onDestroy();
         }
+    }
+
+    private void sendMessage() {
+        Intent intent = new Intent("raw data written to file");
+        // You can also include some extra data.
+        intent.putExtra("message", "Raw Data Written to File");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
  /*   @Override
@@ -237,22 +246,10 @@ public class BluetoothService extends Service {
                     bytes = mmInStream.read(buffer);
                     if (bytes != 0) {
                         final String strReceived = new String(buffer, 0, bytes);
-                        if(!Objects.equals(strReceived, "#")) {
                             Message msge = Message.obtain();
                             msge.obj = strReceived;
-
                             mHandler.obtainMessage(MESSAGE_READ, bytes, -1, msge.obj)
                                     .sendToTarget();
-                        }
-                        else{
-                            Message msge = Message.obtain();
-                            msge.obj = strReceived;
-
-                            mHandler.obtainMessage(MESSAGE_READ, bytes, -1, msge.obj)
-                                    .sendToTarget();
-                            cancel();
-                            onDestroy();
-                        }
                     }
                 } catch (IOException e) {
                     break;
