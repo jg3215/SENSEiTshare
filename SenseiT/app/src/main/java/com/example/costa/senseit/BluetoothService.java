@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
@@ -27,7 +26,6 @@ public class BluetoothService extends Service {
     public Handler mHandler; // Our main handler that will receive callback notifications
     private BluetoothSocket mBTSocket = null; // bi-directional client-to-client data path
     private BluetoothAdapter mBTAdapter;
-    //private Set<BluetoothDevice> mPairedDevices;
 
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); // "random" unique identifier
 
@@ -52,16 +50,13 @@ public class BluetoothService extends Service {
 
     @Override
     public void onCreate() {
-        //restoreMac();
-       // bluetoothstatus = (TextView) findViewById(R.id.bluetoothstatus);
-
         //bluetooth stuff
        /* if (!mBTAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         } */
 
-        Toast.makeText(getBaseContext(), "BluetoothService created", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(), "BluetoothService created", Toast.LENGTH_SHORT).show();
 
         mBTAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -165,7 +160,7 @@ public class BluetoothService extends Service {
             // Toast.makeText(getBaseContext(), "ExternalStorageAvailableandWritable", Toast.LENGTH_SHORT).show();
             File directory = getExternalFilesDir("/Data/");
             // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-            File file = new File(directory, "heartraw.txt");
+            File file = new File(directory, "rawdata.txt");
 
             if (directory.exists()) {
                 //  Toast.makeText(getBaseContext(), "Directory exists!", Toast.LENGTH_SHORT).show();

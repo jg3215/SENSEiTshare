@@ -40,17 +40,19 @@ public class heartactivity extends AppCompatActivity {
         mMessageWindow.setText(someMessage);
     }
 
-    public void connectblueheartclick(View v) {
-        TextView textView3 = (TextView) findViewById(R.id.textView3);
+  /*  public void heartgotoinst (View v) {
+        Intent intent = new Intent(getApplicationContext(), heartinstructions.class);
+        startActivity(intent);
+        //TextView textView3 = (TextView) findViewById(R.id.textView3);
        /* processdata("heartraw.txt");
         if(bpm!=0){ //Means data was calculated well
-            String tesss = "BPM: " + getbpm() + " SPO2: " + getspo2();
+            String tesss = "BPM: " + getbpm();
             textView3.setText(tesss);
         }
         else{
             Toast.makeText(getBaseContext(), "Couldnt Process Data!", Toast.LENGTH_SHORT).show();
-        } */
-    }
+        }
+    } */
 
     public void processdata(String fileName) {
        File directory = getExternalFilesDir("/Data/");

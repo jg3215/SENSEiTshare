@@ -28,28 +28,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        >
-
-        <ImageButton
-            android:id="@+id/redstartbutton"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:layout_height="@dimen/_42sdp"
-            android:adjustViewBounds="false"
-            android:background="@null"
-            android:onClick="connectblueheartclick"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/instructred" />
-
-
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="match_parent"
@@ -65,10 +43,10 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="BPM: XX"
+            android:fontFamily="@font/avenirltstd_light"
+            android:text="Waiting for data"
             android:textAlignment="center"
-            android:textSize="@dimen/_30ssp"
-            android:fontFamily="@font/avenirltstd_light"/>
+            android:textSize="@dimen/_30ssp" />
 
     </LinearLayout>
 
