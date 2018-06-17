@@ -12,8 +12,6 @@ public class o2activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o2); TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
-
-
         StringBuilder stringBuilder = new StringBuilder();
 
         String someMessage = " Sp0 2 stands for the peripheral capillary blood oxygen saturation and estimates how much\n" +
@@ -23,10 +21,5 @@ public class o2activity extends AppCompatActivity {
 
 
         mMessageWindow.setText(someMessage);
-    }
-    public void bluetoothclick(View v)
-    {
-       // Intent intent = new Intent(getApplicationContext(),bluetooth.class);
-       // startActivity(intent);
     }
 }

@@ -22,7 +22,7 @@ public class createprofileactivity extends AppCompatActivity {
         }
     public void crprclick(View v)
     {
-        Intent intent = new Intent(getApplicationContext(), chooseprofileactivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         String user_name = NewUserName.getText().toString();
 
         File directory = getExternalFilesDir("/Profiles/");

@@ -36,11 +36,6 @@ public class lungactivity extends AppCompatActivity {
         mMessageWindow.setText(someMessage);
     }
 
-    public void lungtoinstrclick (View v){
-        Intent intent = new Intent(getApplicationContext(), lunginstructions.class);
-        startActivity(intent);
-    }
-
     public ArrayList<Integer> Readfromfile(String Sensor, String fileName){
 
         //Arraylists into which data from text file will be stored

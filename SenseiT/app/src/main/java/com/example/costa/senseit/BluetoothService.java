@@ -9,19 +9,19 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 import java.util.UUID;
 
 
 public class BluetoothService extends Service {
 
+    public static boolean DataReceived = false;
     public ConnectedThread mConnectedThread; // bluetooth background worker thread to send and receive data
     public Handler mHandler; // Our main handler that will receive callback notifications
     private BluetoothSocket mBTSocket = null; // bi-directional client-to-client data path
@@ -156,29 +156,32 @@ public class BluetoothService extends Service {
     }
 
     public void writeToFile(String data) {
-        if (isExternalStorageWritable() == true && isExternalStorageReadOnly() == false) {
-            // Toast.makeText(getBaseContext(), "ExternalStorageAvailableandWritable", Toast.LENGTH_SHORT).show();
-            File directory = getExternalFilesDir("/Data/");
-            // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-            File file = new File(directory, "rawdata.txt");
+        if(!Objects.equals(data,"#")) {
+            if (isExternalStorageWritable() == true && isExternalStorageReadOnly() == false) {
+                // Toast.makeText(getBaseContext(), "ExternalStorageAvailableandWritable", Toast.LENGTH_SHORT).show();
+                File directory = getExternalFilesDir("/Data/");
+                // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                File file = new File(directory, "rawdata.txt");
 
-            if (directory.exists()) {
-                //  Toast.makeText(getBaseContext(), "Directory exists!", Toast.LENGTH_SHORT).show();
-                FileWriter outstream = null;
-                try {
-                    outstream = new FileWriter(file, true);
-                    outstream.write(data);
-                    outstream.close();
+                if (directory.exists()) {
+                    //  Toast.makeText(getBaseContext(), "Directory exists!", Toast.LENGTH_SHORT).show();
+                    FileWriter outstream = null;
+                    try {
+                        outstream = new FileWriter(file, true);
+                        outstream.write(data);
+                        outstream.close();
 
-                } catch (IOException e) {
-                    Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
-                    Log.e("Exception", "File write failed: " + e.toString());
+                    } catch (IOException e) {
+                        Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getBaseContext(), "Directory doesn't exist", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(getBaseContext(), "Directory doesn't exist", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "ExternalStorageNOTAvailable", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(getBaseContext(), "ExternalStorageNOTAvailable", Toast.LENGTH_SHORT).show();
+        }else{
+            DataReceived = true;
         }
     }
 
@@ -224,7 +227,7 @@ public class BluetoothService extends Service {
         }
 
         public void run() {
-            byte[] buffer = new byte[1024];  // buffer store for the stream
+            byte[] buffer = new byte[1];  // buffer store for the stream
             int bytes; // bytes returned from read()
 
             // Keep listening to the InputStream until an exception occurs
@@ -233,15 +236,24 @@ public class BluetoothService extends Service {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
                     if (bytes != 0) {
-                        String strReceived = new String(buffer, 0, bytes);
-                        final String msgReceived = strReceived;
-                        Message msge = Message.obtain();
-                        msge.obj = msgReceived;
+                        final String strReceived = new String(buffer, 0, bytes);
+                        if(!Objects.equals(strReceived, "#")) {
+                            Message msge = Message.obtain();
+                            msge.obj = strReceived;
 
-                        mHandler.obtainMessage(MESSAGE_READ, bytes, -1, msge.obj)
-                                .sendToTarget();
+                            mHandler.obtainMessage(MESSAGE_READ, bytes, -1, msge.obj)
+                                    .sendToTarget();
+                        }
+                        else{
+                            Message msge = Message.obtain();
+                            msge.obj = strReceived;
+
+                            mHandler.obtainMessage(MESSAGE_READ, bytes, -1, msge.obj)
+                                    .sendToTarget();
+                            cancel();
+                            onDestroy();
+                        }
                     }
-
                 } catch (IOException e) {
                     break;
                 }
