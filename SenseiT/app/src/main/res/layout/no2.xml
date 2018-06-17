@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/textView3"
-        android:fontFamily="@font/avenirltstd_light">
+       >
 
 
         <RelativeLayout
@@ -70,9 +70,10 @@
                 android:layout_height="match_parent"
                 android:id="@+id/messageWindow"
                 android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textSize="@dimen/_24ssp"
+                android:textSize="@dimen/_18ssp"
                 android:textAlignment="center"
-                android:layout_below="@+id/textView3"/>
+                android:layout_below="@+id/textView3"
+                android:fontFamily="@font/avenirltstd_light"/>
 
         </RelativeLayout>
 
