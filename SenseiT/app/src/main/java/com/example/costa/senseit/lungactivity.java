@@ -1,5 +1,7 @@
 package com.example.costa.senseit;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class lungactivity extends AppCompatActivity {
@@ -35,6 +43,33 @@ public class lungactivity extends AppCompatActivity {
 
         mMessageWindow.setText(someMessage);
     }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            File directory = getExternalFilesDir("/Data/");
+            File file = new File(directory,"rawdata.txt");
+            //processdata("rawdata.txt");
+            if (heartactivity.bpm != 0) { //Means data was calculated
+                File directory2 = getExternalFilesDir("/Profiles/");
+                // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                File file2 = new File(directory, "Artur.txt");
+                try {
+                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    FileWriter outstream = new FileWriter(file, true);
+                    Date currentTime = Calendar.getInstance().getTime();
+                    outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
+                    outstream.close();
+                    TextView textView3 = (TextView) findViewById(R.id.textView3);
+                    textView3.setText("BPM: "+Integer.toString(bpm));
+                } catch (IOException e) {
+                    Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
+                    Log.e("Exception", "File write failed: " + e.toString());
+                }
+            }
+        }
+    };
 
     public ArrayList<Integer> Readfromfile(String Sensor, String fileName){
 
@@ -79,15 +114,10 @@ public class lungactivity extends AppCompatActivity {
             bufferedReader.close(); //Closes file.
         }
         catch(FileNotFoundException e) {
-            //System.out.println("Unable to open file '" + fileName + "'");
-            Log.e("Exception", "File read failed: " + e.toString());
             Toast.makeText(getBaseContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
         }
         catch(IOException e) {
-            // System.out.println(
-            //    "Error reading file '" + fileName + "'");
-            Log.e("Exception", "File read failed: " + e.toString());
-            // Toast.makeText(getBaseContext(), "File read failed!", Toast.LENGTH_SHORT).show();
+           Toast.makeText(getBaseContext(), "File read failed!", Toast.LENGTH_SHORT).show();
         }
 
         if(Objects.equals(Sensor, "NO")){

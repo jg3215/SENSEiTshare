@@ -25,8 +25,8 @@ import java.util.Objects;
 
 public class heartactivity extends AppCompatActivity {
 
-    public int bpm = 0;
-    public int spo2 = 0;
+    public static int bpm = 0;
+    public static int spo2 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,17 +140,12 @@ public class heartactivity extends AppCompatActivity {
             bufferedReader.close(); //Closes file.
         }
         catch(FileNotFoundException e) {
-            //System.out.println("Unable to open file '" + fileName + "'");
-            Log.e("Exception", "File read failed: " + e.toString());
             Toast.makeText(getBaseContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
 
 
         }
         catch(IOException e) {
-            // System.out.println(
-            //    "Error reading file '" + fileName + "'");
-            Log.e("Exception", "File read failed: " + e.toString());
-           // Toast.makeText(getBaseContext(), "File read failed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "File read failed!", Toast.LENGTH_SHORT).show();
         }
 
         if(Objects.equals(Sensor, "IR")){
