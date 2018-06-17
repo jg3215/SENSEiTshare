@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.Objects;
 
 public class chooseprofileactivity extends AppCompatActivity {
 
@@ -19,10 +20,12 @@ public class chooseprofileactivity extends AppCompatActivity {
         setContentView(R.layout.chooseprofile);
         File directory = getExternalFilesDir("/Profiles/");
         File[] files = directory.listFiles();
+
         TextView text_user1 = (TextView) findViewById(R.id.text_user1);
         TextView text_user2 = (TextView) findViewById(R.id.text_user2);
         TextView text_user3 = (TextView) findViewById(R.id.text_user3);
         TextView text_user4 = (TextView) findViewById(R.id.text_user4);
+
         if (files.length == 0) {
             String u1 = "Add a User";
             String u2 = "Add a User";
@@ -97,24 +100,51 @@ public class chooseprofileactivity extends AppCompatActivity {
     }
 
     public void user1button(View v) {
+        TextView text_user1 = (TextView) findViewById(R.id.text_user1);
+         if (!Objects.equals(text_user1.getText().toString(),"Add a User")) {
         Intent myIntent = new Intent(chooseprofileactivity.this,
                 MainActivity.class);
-        startActivity(myIntent);
+        startActivity(myIntent);}
+        else{
+         Intent myIntent = new Intent(chooseprofileactivity.this,
+                 createprofileactivity.class);
+             startActivity(myIntent);}
     }
+
     public void user2button(View v) {
+        TextView text_user2 = (TextView) findViewById(R.id.text_user2);
+        if (!Objects.equals(text_user2.getText().toString(),"Add a User")) {
         Intent myIntent = new Intent(chooseprofileactivity.this,
                 MainActivity.class);
-        startActivity(myIntent);
+        startActivity(myIntent);}
+        else
+        {Intent myIntent = new Intent(chooseprofileactivity.this,
+                createprofileactivity.class);
+            startActivity(myIntent);}
     }
+
     public void user3button(View v) {
+        TextView text_user3 = (TextView) findViewById(R.id.text_user3);
+        if (text_user3.getText().toString()!="Add a User") {
         Intent myIntent = new Intent(chooseprofileactivity.this,
                 MainActivity.class);
-        startActivity(myIntent);
+        startActivity(myIntent);}
+        else
+        {Intent myIntent = new Intent(chooseprofileactivity.this,
+                createprofileactivity.class);
+            startActivity(myIntent);}
+
     }
     public void user4button(View v) {
+        TextView text_user4 = (TextView) findViewById(R.id.text_user4);
+        if (text_user4.getText().toString()!="Add a User") {
         Intent myIntent = new Intent(chooseprofileactivity.this,
                 MainActivity.class);
-        startActivity(myIntent);
+        startActivity(myIntent);}
+        else
+        {Intent myIntent = new Intent(chooseprofileactivity.this,
+                createprofileactivity.class);
+            startActivity(myIntent);}
     }
 
 }
