@@ -14,6 +14,8 @@ import java.util.Objects;
 
 public class chooseprofileactivity extends AppCompatActivity {
 
+    public static String profileChosen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,9 +116,11 @@ public class chooseprofileactivity extends AppCompatActivity {
     public void user2button(View v) {
         TextView text_user2 = (TextView) findViewById(R.id.text_user2);
         if (!Objects.equals(text_user2.getText().toString(),"Add a User")) {
-        Intent myIntent = new Intent(chooseprofileactivity.this,
+            profileChosen = text_user2.getText().toString();
+            Intent myIntent = new Intent(chooseprofileactivity.this,
                 MainActivity.class);
-        startActivity(myIntent);}
+            startActivity(myIntent);
+        }
         else
         {Intent myIntent = new Intent(chooseprofileactivity.this,
                 createprofileactivity.class);
@@ -125,7 +129,8 @@ public class chooseprofileactivity extends AppCompatActivity {
 
     public void user3button(View v) {
         TextView text_user3 = (TextView) findViewById(R.id.text_user3);
-        if (text_user3.getText().toString()!="Add a User") {
+        if (!Objects.equals(text_user3.getText().toString(),"Add a User")) {
+            profileChosen = text_user3.getText().toString();
         Intent myIntent = new Intent(chooseprofileactivity.this,
                 MainActivity.class);
         startActivity(myIntent);}
@@ -137,7 +142,8 @@ public class chooseprofileactivity extends AppCompatActivity {
     }
     public void user4button(View v) {
         TextView text_user4 = (TextView) findViewById(R.id.text_user4);
-        if (text_user4.getText().toString()!="Add a User") {
+        if (!Objects.equals(text_user4.getText().toString(),"Add a User")) {
+            profileChosen = text_user4.getText().toString();
         Intent myIntent = new Intent(chooseprofileactivity.this,
                 MainActivity.class);
         startActivity(myIntent);}

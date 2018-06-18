@@ -124,10 +124,6 @@ public class BluetoothService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        // For time consuming an long tasks you can launch a new thread here...
-        // Do your Bluetooth Work Here
-       // Toast.makeText(this, "Bluetooth Service Started", Toast.LENGTH_LONG).show();
-
     }
 
     @Override

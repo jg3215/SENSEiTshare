@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.BufferedReader;
@@ -21,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class heartactivity extends AppCompatActivity {
@@ -52,26 +52,27 @@ public class heartactivity extends AppCompatActivity {
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
-            File directory = getExternalFilesDir("/Data/");
-            File file = new File(directory,"rawdata.txt");
-            processdata("rawdata.txt");
-            if (bpm != 0) { //Means data was calculated
-                File directory2 = getExternalFilesDir("/Profiles/");
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+            if(o2activity.bpm == 0) {
+                processdata("rawdata.txt");
+                File directory = getExternalFilesDir("/Profiles/");
                 // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                File file2 = new File(directory, "Artur.txt");
+                File file = new File(directory, chooseprofileactivity.profileChosen);
                 try {
-                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
                     FileWriter outstream = new FileWriter(file, true);
                     Date currentTime = Calendar.getInstance().getTime();
                     outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
                     outstream.close();
-                    TextView textView3 = (TextView) findViewById(R.id.textView3);
-                    textView3.setText("BPM: "+Integer.toString(bpm));
+                    String text = Integer.toString(bpm)+" BPM";
+                    textView3.setText(text);
                 } catch (IOException e) {
                     Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
-                    Log.e("Exception", "File write failed: " + e.toString());
                 }
+            }
+            else{
+                String text = Integer.toString(o2activity.bpm)+" BPM";
+                textView3.setText(text);
             }
         }
     };
@@ -90,7 +91,6 @@ public class heartactivity extends AppCompatActivity {
 
                //Part to Calculate SPO2
                spo2 = SPO2(IRwithoutDC, REDwithoutDC);
-               //setspo2(lung);
 
                //Moving Average Filtering of IR data
                ArrayList<Integer> IRnoDCMAF = MAF(IRwithoutDC, 15);
@@ -109,15 +109,6 @@ public class heartactivity extends AppCompatActivity {
            Toast.makeText(getBaseContext(), "Directory doesnt exist!", Toast.LENGTH_SHORT).show();
        }
     }
-
-    public String getbpm(){
-        return Integer.toString(bpm);
-    }
-
-    public String getspo2(){
-        return Integer.toString(spo2);
-    }
-
 
     public ArrayList<Integer> Readfromfile(String Sensor, String fileName){
 
@@ -141,8 +132,6 @@ public class heartactivity extends AppCompatActivity {
         }
         catch(FileNotFoundException e) {
             Toast.makeText(getBaseContext(), "File Not Found!", Toast.LENGTH_SHORT).show();
-
-
         }
         catch(IOException e) {
             Toast.makeText(getBaseContext(), "File read failed!", Toast.LENGTH_SHORT).show();
@@ -270,3 +259,4 @@ public class heartactivity extends AppCompatActivity {
         return (int)(60/(meanbeatperiod*0.01)+0.5);
     }
 }
+

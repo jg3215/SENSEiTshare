@@ -24,6 +24,7 @@ public class createprofileactivity extends AppCompatActivity {
     {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         String user_name = NewUserName.getText().toString();
+        chooseprofileactivity.profileChosen = user_name;
 
         File directory = getExternalFilesDir("/Profiles/");
         File file_user = new File(directory,user_name+".txt");
