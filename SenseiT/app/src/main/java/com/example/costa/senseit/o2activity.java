@@ -75,7 +75,7 @@ public class o2activity extends AppCompatActivity {
             }
         }
     };
-    
+
     public void processdata(String fileName) {
         File directory = getExternalFilesDir("/Data/");
         if(directory.exists()) {
