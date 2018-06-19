@@ -85,7 +85,7 @@ public class no2activity extends AppCompatActivity {
     public void processData(String fileName) {
         File directory = getExternalFilesDir("/Data/");
         if (directory.exists()) {
-            String filepath = directory.getAbsolutePath() + "/" + fileName;
+            String filepath = directory.getAbsolutePath() + fileName;
             ArrayList<Integer> NOvalues = Readfromfile("NO", filepath);
             ArrayList<Integer> LUNGvalues = Readfromfile("Lung", filepath);
             if(!NOvalues.isEmpty()) {

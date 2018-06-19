@@ -80,7 +80,7 @@ public class heartactivity extends AppCompatActivity {
     public void processdata(String fileName) {
        File directory = getExternalFilesDir("/Data/");
        if(directory.exists()) {
-           String filepath = directory.getAbsolutePath()+"/"+fileName;
+           String filepath = directory.getAbsolutePath()+fileName;
            ArrayList<Integer> IRvalues = Readfromfile("IR", filepath);
            ArrayList<Integer> REDvalues = Readfromfile("RED", filepath);
 
