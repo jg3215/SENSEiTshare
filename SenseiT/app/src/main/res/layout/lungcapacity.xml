@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/avenirltstd_light"
-            android:text="Waiting for data"
+            android:text="Connecting..."
             android:textAlignment="center"
             android:textSize="@dimen/_30ssp" />
 

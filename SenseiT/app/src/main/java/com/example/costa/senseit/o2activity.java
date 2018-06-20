@@ -25,8 +25,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class o2activity extends AppCompatActivity {
-    public static int bpm = 0;
-    public static int spo2 = 0;
+    public  int bpm = 0;
+    public int spo2 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,11 @@ public class o2activity extends AppCompatActivity {
         startService(mIntent);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("raw data written to file"));
+                new IntentFilter("ConnectedBluetooth"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver2,
+                new IntentFilter("ReceivingData"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver3,
+                new IntentFilter("RawDataWrittenToFile"));
 
         String someMessage = " Sp0 2 stands for the peripheral capillary blood oxygen saturation and estimates how much\n" +
                 "oxygen there is in your blood. The normal oxygen saturation in an adult is between 95% and\n" +
@@ -48,38 +52,54 @@ public class o2activity extends AppCompatActivity {
         mMessageWindow.setText(someMessage);
     }
 
+
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
-            if(heartactivity.spo2 == 0) {
-                processdata("rawdata.txt");
-                File directory = getExternalFilesDir("/Profiles/");
-                // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                File file = new File(directory, chooseprofileactivity.profileChosen);
-                try {
-                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
-                    FileWriter outstream = new FileWriter(file, true);
-                    Date currentTime = Calendar.getInstance().getTime();
-                    outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
-                    outstream.close();
-                    String text = Integer.toString(spo2)+" %";
-                    textView3.setText(text);
-                } catch (IOException e) {
-                    Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else{
-                String text = Integer.toString(heartactivity.spo2)+" %";
+                String instr = "Place finger on sensor";
+                textView3.setText(instr);
+        }
+    };
+    private BroadcastReceiver mMessageReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+            String recvd = "Receiving Data";
+            textView3.setText(recvd);
+        }
+    };
+
+    private BroadcastReceiver mMessageReceiver3 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+            String procd = "Processing Data";
+            textView3.setText(procd);
+            // if(heartactivity.spo2 == 0) {
+            processdata("rawdata.txt");
+            File directory = getExternalFilesDir("/Profiles/");
+            // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            File file = new File(directory, "Artur.txt");
+            try {
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+                FileWriter outstream = new FileWriter(file, true);
+                Date currentTime = Calendar.getInstance().getTime();
+                outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
+                outstream.close();
+                String text = Integer.toString(spo2) + "%";
                 textView3.setText(text);
+            } catch (IOException e) {
+                Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
             }
         }
     };
 
     public void processdata(String fileName) {
+        //Toast.makeText(getBaseContext(), "Processing Data", Toast.LENGTH_SHORT).show();
         File directory = getExternalFilesDir("/Data/");
         if(directory.exists()) {
-            String filepath = directory.getAbsolutePath()+fileName;
+            String filepath = directory.getAbsolutePath()+"/"+fileName;
             ArrayList<Integer> IRvalues = Readfromfile("IR", filepath);
             ArrayList<Integer> REDvalues = Readfromfile("RED", filepath);
 
@@ -101,7 +121,7 @@ public class o2activity extends AppCompatActivity {
                 bpm = BPM(IRfiltered);
             }
             else{
-                Toast.makeText(getBaseContext(), "File isn't there!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Couldn't process data!", Toast.LENGTH_SHORT).show();
             }
         }
         else{

@@ -30,7 +30,7 @@ import java.util.Objects;
 
 public class lungactivity extends AppCompatActivity {
 
-    public static int NOconc = 0;
+    public static double NOconc = 0;
     public static double LUNGvolume = 0;
 
     @Override
@@ -42,7 +42,11 @@ public class lungactivity extends AppCompatActivity {
         startService(mIntent);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("raw data written to file"));
+                new IntentFilter("ConnectedBluetooth"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver2,
+                new IntentFilter("ReceivingData"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver3,
+                new IntentFilter("RawDataWrittenToFile"));
 
         TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
 
@@ -54,45 +58,61 @@ public class lungactivity extends AppCompatActivity {
 
         mMessageWindow.setText(someMessage);
     }
-
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
-            if(no2activity.NOconc == 0) {
+            String instr = "Place finger on sensor";
+            textView3.setText(instr);
+        }
+    };
+    private BroadcastReceiver mMessageReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+            String recvd = "Receiving Data";
+            textView3.setText(recvd);
+        }
+    };
+
+    private BroadcastReceiver mMessageReceiver3 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+            //if(no2activity.NOconc == 0) {
                 processData("rawdata.txt");
                 File directory = getExternalFilesDir("/Profiles/");
                 // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                File file = new File(directory, chooseprofileactivity.profileChosen);
+                File file = new File(directory, "Artur.txt");
                 try {
                     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
                     FileWriter outstream = new FileWriter(file, true);
                     Date currentTime = Calendar.getInstance().getTime();
-                    outstream.write(df.format(currentTime) + " - NOconc: " + Integer.toString(NOconc) + " LungVol: " + Double.toString(LUNGvolume) + "\n");
+                    outstream.write(df.format(currentTime) + " - NOconc: " + Double.toString(NOconc) + " LungVol: " + Double.toString(LUNGvolume) + "\n");
                     outstream.close();
-                    String text = Integer.toString(NOconc);
+                    String text = Double.toString(LUNGvolume) + " Liters";
                     textView3.setText(text);
                 } catch (IOException e) {
                     Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
                 }
-            }
+         /*   }
             else{
                 String text = Double.toString(no2activity.LUNGvolume)+" Liters";
                 textView3.setText(text);
-            }
+            } */
         }
     };
 
     public void processData(String fileName) {
         File directory = getExternalFilesDir("/Data/");
         if (directory.exists()) {
-            String filepath = directory.getAbsolutePath() + fileName;
-            ArrayList<Integer> NOvalues = Readfromfile("NO", filepath);
-            ArrayList<Integer> LUNGvalues = Readfromfile("Lung", filepath);
+            String filepath = directory.getAbsolutePath() + "/" + fileName;
+            ArrayList<Double> NOvalues = Readfromfile("NO", filepath);
+            ArrayList<Double> LUNGvalues = Readfromfile("Lung", filepath);
             if(!NOvalues.isEmpty()) {
                 NOconc = getMax(NOvalues)-first2sAverage(NOvalues);
 
-                ArrayList<Integer> LUNGvaluesMAF = MAF(LUNGvalues, 15);
+                ArrayList<Double> LUNGvaluesMAF = MAF(LUNGvalues, 15);
                 LUNGvolume = TrapzIntegration(LUNGvaluesMAF);
             }
             else{
@@ -101,11 +121,11 @@ public class lungactivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<Integer> Readfromfile(String Sensor, String fileName){
+    public ArrayList<Double> Readfromfile(String Sensor, String fileName){
 
         //Arraylists into which data from text file will be stored
-        ArrayList<Integer> NOvalues = new ArrayList<Integer>();
-        ArrayList<Integer> LUNGvalues = new ArrayList<Integer>();
+        ArrayList<Double> NOvalues = new ArrayList<Double>();
+        ArrayList<Double> LUNGvalues = new ArrayList<Double>();
         //READING THE NUMBERS FROM THE TEXT FILE INTO ARRAYS
         String line = null; // This will reference one line at a time
         try {
@@ -118,25 +138,25 @@ public class lungactivity extends AppCompatActivity {
             while((line = bufferedReader.readLine()) != null) {
                 if(!NOjustread){
                     if(datanumber!=20){
-                        NOvalues.add(Integer.parseInt(line));
+                        NOvalues.add(Double.parseDouble(line));
                         datanumber++;
                     }
                     else{
                         NOjustread = true;
                         datanumber = 0;
-                        LUNGvalues.add(Integer.parseInt(line));
+                        LUNGvalues.add(Double.parseDouble(line));
                         datanumber++;
                     }
                 }
                 else{
                     if(datanumber!=20){
-                        LUNGvalues.add(Integer.parseInt(line));
+                        LUNGvalues.add(Double.parseDouble(line));
                         datanumber++;
                     }
                     else{
                         NOjustread = false;
                         datanumber = 0;
-                        NOvalues.add(Integer.parseInt(line));
+                        NOvalues.add(Double.parseDouble(line));
                         datanumber++;
                     }
                 }
@@ -158,8 +178,8 @@ public class lungactivity extends AppCompatActivity {
         }
     }
 
-    public int getMax(ArrayList<Integer> list){
-        int max = Integer.MIN_VALUE;
+    public double getMax(ArrayList<Double> list){
+        Double max = Double.MIN_VALUE;
         for(int i=0; i<list.size(); i++){
             if(list.get(i) > max){
                 max = list.get(i);
@@ -168,8 +188,8 @@ public class lungactivity extends AppCompatActivity {
         return max;
     }
 
-    public int first2sAverage(ArrayList<Integer> data){
-        int average = 0;
+    public double first2sAverage(ArrayList<Double> data){
+        double average = 0;
         for (int i=0;i<200;i++){
             average = average + data.get(i);
         }
@@ -177,20 +197,20 @@ public class lungactivity extends AppCompatActivity {
         return average;
     }
 
-    public ArrayList<Integer> MAF(ArrayList<Integer> y, int windowsize){
-        ArrayList<Integer> ynoDCMAF = new ArrayList<Integer>();
+    public ArrayList<Double> MAF(ArrayList<Double> y, int windowsize){
+        ArrayList<Double> ynoDCMAF = new ArrayList<Double>();
         double sum = 0;
         for(int i=0;i<y.size()-windowsize+1;i++){
             for(int n=0;n<windowsize;n++){
                 sum = sum + y.get(n+i);
             }
-            ynoDCMAF.add((int)sum/windowsize);
+            ynoDCMAF.add(sum/windowsize);
             sum = 0;
         }
         return ynoDCMAF;
     }
 
-    public double TrapzIntegration(ArrayList<Integer> data){
+    public double TrapzIntegration(ArrayList<Double> data){
         Collections.sort(data);
         int a = 1;
         int N = data.size();

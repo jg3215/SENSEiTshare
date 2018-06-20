@@ -38,9 +38,9 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/bluetoothstatus"
-            android:layout_marginStart="@dimen/_55sdp"
-            android:layout_marginTop="@dimen/_100sdp"
+            android:layout_below="@+id/textView9"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="46dp"
             android:background="@drawable/heartratebutton"
             android:onClick="heartrateclick" />
 

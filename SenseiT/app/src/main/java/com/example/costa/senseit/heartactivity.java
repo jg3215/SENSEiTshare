@@ -25,8 +25,8 @@ import java.util.Objects;
 
 public class heartactivity extends AppCompatActivity {
 
-    public static int bpm = 0;
-    public static int spo2 = 0;
+    public  int bpm = 0;
+    public  int spo2 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,11 @@ public class heartactivity extends AppCompatActivity {
         startService(mIntent);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("raw data written to file"));
+                new IntentFilter("ConnectedBluetooth"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver2,
+                new IntentFilter("ReceivingData"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver3,
+                new IntentFilter("RawDataWrittenToFile"));
 
         TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
 
@@ -53,26 +57,40 @@ public class heartactivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
-            if(o2activity.bpm == 0) {
-                processdata("rawdata.txt");
-                File directory = getExternalFilesDir("/Profiles/");
-                // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                File file = new File(directory, chooseprofileactivity.profileChosen);
-                try {
-                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
-                    FileWriter outstream = new FileWriter(file, true);
-                    Date currentTime = Calendar.getInstance().getTime();
-                    outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
-                    outstream.close();
-                    String text = Integer.toString(bpm)+" BPM";
-                    textView3.setText(text);
-                } catch (IOException e) {
-                    Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else{
-                String text = Integer.toString(o2activity.bpm)+" BPM";
+            String instr = "Place finger on sensor";
+            textView3.setText(instr);
+        }
+    };
+    private BroadcastReceiver mMessageReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+            String recvd = "Receiving Data";
+            textView3.setText(recvd);
+        }
+    };
+
+    private BroadcastReceiver mMessageReceiver3 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+            String procd = "Processing Data";
+            textView3.setText(procd);
+            // if(heartactivity.spo2 == 0) {
+            processdata("rawdata.txt");
+            File directory = getExternalFilesDir("/Profiles/");
+            // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            File file = new File(directory, "Artur.txt");
+            try {
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+                FileWriter outstream = new FileWriter(file, true);
+                Date currentTime = Calendar.getInstance().getTime();
+                outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
+                outstream.close();
+                String text = Integer.toString(bpm) + "BPM";
                 textView3.setText(text);
+            } catch (IOException e) {
+                Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -80,7 +98,7 @@ public class heartactivity extends AppCompatActivity {
     public void processdata(String fileName) {
        File directory = getExternalFilesDir("/Data/");
        if(directory.exists()) {
-           String filepath = directory.getAbsolutePath()+fileName;
+           String filepath = directory.getAbsolutePath() + "/" + fileName;
            ArrayList<Integer> IRvalues = Readfromfile("IR", filepath);
            ArrayList<Integer> REDvalues = Readfromfile("RED", filepath);
 

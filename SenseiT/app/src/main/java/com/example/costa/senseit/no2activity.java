@@ -41,7 +41,11 @@ public class no2activity extends AppCompatActivity {
         startService(mIntent);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("raw data written to file"));
+                new IntentFilter("ConnectedBluetooth"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver2,
+                new IntentFilter("ReceivingData"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver3,
+                new IntentFilter("RawDataWrittenToFile"));
 
         TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
 
@@ -58,34 +62,50 @@ public class no2activity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
-            if(lungactivity.NOconc == 0) {
+            String instr = "Place finger on sensor";
+            textView3.setText(instr);
+        }
+    };
+    private BroadcastReceiver mMessageReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+            String recvd = "Receiving Data";
+            textView3.setText(recvd);
+        }
+    };
+    private BroadcastReceiver mMessageReceiver3 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+           // if(lungactivity.NOconc == 0) {
                 processData("rawdata.txt");
                 File directory = getExternalFilesDir("/Profiles/");
                 // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                File file = new File(directory, chooseprofileactivity.profileChosen);
+                File file = new File(directory, "Artur.txt");
                 try {
                     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
                     FileWriter outstream = new FileWriter(file, true);
                     Date currentTime = Calendar.getInstance().getTime();
                     outstream.write(df.format(currentTime) + " - NOconc: " + Integer.toString(NOconc) + " LungVol: " + Double.toString(LUNGvolume) + "\n");
                     outstream.close();
-                    String text = Integer.toString(NOconc);
+                    String text = Integer.toString(NOconc) + " ppm";
                     textView3.setText(text);
                 } catch (IOException e) {
                     Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
                 }
-            }
+          /*  }
             else{
                 String text = Integer.toString(lungactivity.NOconc)+" ppm";
                 textView3.setText(text);
-            }
+            } */
         }
     };
 
     public void processData(String fileName) {
         File directory = getExternalFilesDir("/Data/");
         if (directory.exists()) {
-            String filepath = directory.getAbsolutePath() + fileName;
+            String filepath = directory.getAbsolutePath() + "/"+ fileName;
             ArrayList<Integer> NOvalues = Readfromfile("NO", filepath);
             ArrayList<Integer> LUNGvalues = Readfromfile("Lung", filepath);
             if(!NOvalues.isEmpty()) {
