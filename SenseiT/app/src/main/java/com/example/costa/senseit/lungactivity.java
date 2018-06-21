@@ -20,6 +20,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,8 +31,8 @@ import java.util.Objects;
 
 public class lungactivity extends AppCompatActivity {
 
-    public static double NOconc = 0;
-    public static double LUNGvolume = 0;
+    public double NOconc = 0;
+    public double LUNGvolume = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +59,12 @@ public class lungactivity extends AppCompatActivity {
 
         mMessageWindow.setText(someMessage);
     }
+
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
-            String instr = "Place finger on sensor";
+            String instr = "Breathe into device";
             textView3.setText(instr);
         }
     };
@@ -83,14 +85,15 @@ public class lungactivity extends AppCompatActivity {
                 processData("rawdata.txt");
                 File directory = getExternalFilesDir("/Profiles/");
                 // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                File file = new File(directory, "Artur.txt");
+                File file = new File(directory, chooseprofileactivity.profileChosen + ".txt");
                 try {
                     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
                     FileWriter outstream = new FileWriter(file, true);
                     Date currentTime = Calendar.getInstance().getTime();
-                    outstream.write(df.format(currentTime) + " - NOconc: " + Double.toString(NOconc) + " LungVol: " + Double.toString(LUNGvolume) + "\n");
+                    DecimalFormat numberFormat = new DecimalFormat("#.0");
+                    outstream.write(df.format(currentTime) + " - NOconc: " + numberFormat.format(NOconc) + " LungVol: " + numberFormat.format(LUNGvolume) + "\n");
                     outstream.close();
-                    String text = Double.toString(LUNGvolume) + " Liters";
+                    String text = numberFormat.format(LUNGvolume) + " Liters";
                     textView3.setText(text);
                 } catch (IOException e) {
                     Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
@@ -111,13 +114,24 @@ public class lungactivity extends AppCompatActivity {
             ArrayList<Double> LUNGvalues = Readfromfile("Lung", filepath);
             if(!NOvalues.isEmpty()) {
                 NOconc = getMax(NOvalues)-first2sAverage(NOvalues);
-
                 ArrayList<Double> LUNGvaluesMAF = MAF(LUNGvalues, 15);
                 LUNGvolume = TrapzIntegration(LUNGvaluesMAF);
             }
             else{
                 Toast.makeText(getBaseContext(), "File isn't there!!", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    public boolean isDouble( String input ) {
+        try
+        {
+            Double.parseDouble( input );
+            return true;
+        }
+        catch( Exception e)
+        {
+            return false;
         }
     }
 
@@ -136,28 +150,27 @@ public class lungactivity extends AppCompatActivity {
             int datanumber = 0;
             boolean NOjustread = false;
             while((line = bufferedReader.readLine()) != null) {
-                if(!NOjustread){
-                    if(datanumber!=20){
-                        NOvalues.add(Double.parseDouble(line));
-                        datanumber++;
-                    }
-                    else{
-                        NOjustread = true;
-                        datanumber = 0;
-                        LUNGvalues.add(Double.parseDouble(line));
-                        datanumber++;
-                    }
-                }
-                else{
-                    if(datanumber!=20){
-                        LUNGvalues.add(Double.parseDouble(line));
-                        datanumber++;
-                    }
-                    else{
-                        NOjustread = false;
-                        datanumber = 0;
-                        NOvalues.add(Double.parseDouble(line));
-                        datanumber++;
+                if(isDouble(line)) {
+                    if (!NOjustread) {
+                        if (datanumber != 20) {
+                            NOvalues.add(Double.parseDouble(line));
+                            datanumber++;
+                        } else {
+                            NOjustread = true;
+                            datanumber = 0;
+                            LUNGvalues.add(Double.parseDouble(line));
+                            datanumber++;
+                        }
+                    } else {
+                        if (datanumber != 20) {
+                            LUNGvalues.add(Double.parseDouble(line));
+                            datanumber++;
+                        } else {
+                            NOjustread = false;
+                            datanumber = 0;
+                            NOvalues.add(Double.parseDouble(line));
+                            datanumber++;
+                        }
                     }
                 }
             }
@@ -179,7 +192,7 @@ public class lungactivity extends AppCompatActivity {
     }
 
     public double getMax(ArrayList<Double> list){
-        Double max = Double.MIN_VALUE;
+        double max = 0;
         for(int i=0; i<list.size(); i++){
             if(list.get(i) > max){
                 max = list.get(i);
@@ -190,10 +203,10 @@ public class lungactivity extends AppCompatActivity {
 
     public double first2sAverage(ArrayList<Double> data){
         double average = 0;
-        for (int i=0;i<200;i++){
+        for (int i=0;i<30;i++){
             average = average + data.get(i);
         }
-        average = average/200;
+        average = average/30;
         return average;
     }
 
@@ -204,7 +217,7 @@ public class lungactivity extends AppCompatActivity {
             for(int n=0;n<windowsize;n++){
                 sum = sum + y.get(n+i);
             }
-            ynoDCMAF.add(sum/windowsize);
+            ynoDCMAF.add(sum/(double)windowsize);
             sum = 0;
         }
         return ynoDCMAF;
@@ -216,7 +229,7 @@ public class lungactivity extends AppCompatActivity {
         int N = data.size();
         int h = 1; // Stepsize
         double sum = 0.5*(data.get(0)+data.get(data.size()-1));
-        for (int i=1;i<N;i++){
+        for (int i=0;i<N-2;i++){
             int x = a + h*i;
             sum = sum + data.get(x);
         }

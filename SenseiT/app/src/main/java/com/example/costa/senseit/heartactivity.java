@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.CountDownTimer;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,12 +44,13 @@ public class heartactivity extends AppCompatActivity {
                 new IntentFilter("ReceivingData"));
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver3,
                 new IntentFilter("RawDataWrittenToFile"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver4,
+                new IntentFilter("FingerPlacedOnSensor"));
 
         TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
 
         String someMessage = " The average normal resting heart rate for adults is between 60 and 100 beats per minute\n" +
                 "(bpm). Heart rate increases with exercise and normal heart rate varies between individuals.\n ";
-
 
         mMessageWindow.setText(someMessage);
     }
@@ -61,9 +63,28 @@ public class heartactivity extends AppCompatActivity {
             textView3.setText(instr);
         }
     };
-    private BroadcastReceiver mMessageReceiver2 = new BroadcastReceiver() {
+
+    private BroadcastReceiver mMessageReceiver4 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            new CountDownTimer(20000, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    TextView textView3 = (TextView) findViewById(R.id.textView3);
+                    String timeleft = Long.toString(millisUntilFinished / 1000);
+                    textView3.setText(timeleft);
+                }
+                public void onFinish() {
+                    TextView textView3 = (TextView) findViewById(R.id.textView3);
+                    String text = "Remove Finger";
+                    textView3.setText(text);
+                }
+            }.start();
+        }
+    };
+
+    private BroadcastReceiver mMessageReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent){
             TextView textView3 = (TextView) findViewById(R.id.textView3);
             String recvd = "Receiving Data";
             textView3.setText(recvd);
@@ -80,7 +101,7 @@ public class heartactivity extends AppCompatActivity {
             processdata("rawdata.txt");
             File directory = getExternalFilesDir("/Profiles/");
             // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-            File file = new File(directory, "Artur.txt");
+            File file = new File(directory, chooseprofileactivity.profileChosen + ".txt");
             try {
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
                 FileWriter outstream = new FileWriter(file, true);
@@ -103,6 +124,7 @@ public class heartactivity extends AppCompatActivity {
            ArrayList<Integer> REDvalues = Readfromfile("RED", filepath);
 
            if(!IRvalues.isEmpty()) {
+
                //Perform DC filtering  - removing of the DC component
                ArrayList<Integer> IRwithoutDC = DCremoval(IRvalues);
                ArrayList<Integer> REDwithoutDC = DCremoval(REDvalues);
@@ -128,6 +150,19 @@ public class heartactivity extends AppCompatActivity {
        }
     }
 
+    public boolean isInteger( String input )
+    {
+        try
+        {
+            Integer.parseInt( input );
+            return true;
+        }
+        catch( Exception e)
+        {
+            return false;
+        }
+    }
+
     public ArrayList<Integer> Readfromfile(String Sensor, String fileName){
 
         //Arraylists into which data from text file will be stored
@@ -141,10 +176,18 @@ public class heartactivity extends AppCompatActivity {
             FileReader fileReader = new FileReader(fileName);
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader = new BufferedReader(fileReader);
+            boolean IRorRED = true;
             while((line = bufferedReader.readLine()) != null) {
                 //IR and Red LED values are stored one after the other in one column so each line is a number and have read them in turn
-                IRvalues.add(Integer.parseInt(line));
-                REDvalues.add(Integer.parseInt(bufferedReader.readLine()));
+                if(isInteger(line)) {
+                    if(IRorRED){
+                        IRvalues.add(Integer.parseInt(line));
+                        IRorRED = false;
+                    }else {
+                        REDvalues.add(Integer.parseInt(line));
+                        IRorRED = true;
+                    }
+                }
             }
             bufferedReader.close(); //Closes file.
         }
@@ -156,9 +199,11 @@ public class heartactivity extends AppCompatActivity {
         }
 
         if(Objects.equals(Sensor, "IR")){
+           // IRvalues.remove(IRvalues.size()-1);
             return IRvalues;
         }
         else{
+          //  REDvalues.remove(REDvalues.size()-1);
             return REDvalues;
         }
     }
@@ -172,7 +217,7 @@ public class heartactivity extends AppCompatActivity {
             prev_w =(double)y.get(i)+0.95*prev_w;
         }
 
-        for (int i=0;i<300;i++){
+        for (int i=0;i<100;i++){
             ynoDC.remove(0);
             if(i%2 == 1){
                 ynoDC.remove(ynoDC.size()-1);

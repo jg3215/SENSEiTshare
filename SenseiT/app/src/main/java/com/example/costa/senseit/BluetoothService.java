@@ -5,11 +5,9 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -97,8 +95,6 @@ public class BluetoothService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-     //   Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
-
     }
 
     private void sendMessage() {
@@ -108,13 +104,16 @@ public class BluetoothService extends Service {
 
     private void sendMessage2() {
         Intent intent = new Intent("ReceivingData");
-        // You can also include some extra data.
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     private void sendMessage3() {
         Intent intent = new Intent("RawDataWrittenToFile");
-        // You can also include some extra data.
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    private void sendMessage4() {
+        Intent intent = new Intent("FingerPlacedOnSensor");
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
@@ -154,7 +153,7 @@ public class BluetoothService extends Service {
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
         private BufferedWriter outstream;
-        private boolean FingerRemoved = false;
+        private boolean ReceivingStarted= false;
 
         public ConnectedThread(BluetoothSocket socket) {
             mmSocket = socket;
@@ -188,28 +187,31 @@ public class BluetoothService extends Service {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
                     if (bytes != 0) {
-                        if(!FingerRemoved){
-                            sendMessage2();
-                            FingerRemoved = true;
-                        }
                         final String strReceived = new String(buffer, 0, bytes);
                         if(!Objects.equals(strReceived,"#")){
-                            if(isInteger(strReceived) || Objects.equals(strReceived,"\n")|| Objects.equals(strReceived,".")||Objects.equals(strReceived,"-")){
+                            if(Objects.equals(strReceived,"S")){
+                                sendMessage4();
+                            }else{
+                                if(!ReceivingStarted){
+                                    sendMessage2();
+                                    ReceivingStarted = true;
+                                }
                                 outstream.write(strReceived);
                             }
                         }else {
                             outstream.close();
                             sendMessage3();
+                            //onDestroy();
+                            //cancel();
                             break;
                         }
                     }
                 } catch (IOException e) {
-                    break;
                 }
             }
         }
 
-        // Call this from the main activity to send data to the remote device
+     /*   // Call this from the main activity to send data to the remote device
         public void write(String input) {
             byte[] bytes = input.getBytes();           //converts entered String into bytes
             try {
@@ -224,7 +226,7 @@ public class BluetoothService extends Service {
                 mmSocket.close();
             } catch (IOException e) {
             }
-        }
+        } */
     }
 
 }
