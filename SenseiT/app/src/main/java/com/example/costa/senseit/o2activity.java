@@ -101,10 +101,10 @@ public class o2activity extends AppCompatActivity {
     private BroadcastReceiver mMessageReceiver4 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            new CountDownTimer(20000, 1000) {
+            new CountDownTimer(15000, 1000) {
                 public void onTick(long millisUntilFinished) {
                     TextView textView3 = (TextView) findViewById(R.id.textView3);
-                    String timeleft = Long.toString(millisUntilFinished / 1000);
+                    String timeleft = "Please hold: " + Long.toString(millisUntilFinished / 1000);
                     textView3.setText(timeleft);
                 }
                 public void onFinish() {

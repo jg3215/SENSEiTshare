@@ -67,10 +67,10 @@ public class heartactivity extends AppCompatActivity {
     private BroadcastReceiver mMessageReceiver4 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            new CountDownTimer(20000, 1000) {
+            new CountDownTimer(15000, 1000) {
                 public void onTick(long millisUntilFinished) {
                     TextView textView3 = (TextView) findViewById(R.id.textView3);
-                    String timeleft = Long.toString(millisUntilFinished / 1000);
+                    String timeleft = "Please hold: " + Long.toString(millisUntilFinished / 1000);
                     textView3.setText(timeleft);
                 }
                 public void onFinish() {
@@ -133,7 +133,7 @@ public class heartactivity extends AppCompatActivity {
                spo2 = SPO2(IRwithoutDC, REDwithoutDC);
 
                //Moving Average Filtering of IR data
-               ArrayList<Integer> IRnoDCMAF = MAF(IRwithoutDC, 15);
+               ArrayList<Integer> IRnoDCMAF = MAF(IRwithoutDC, 3);
 
                //LowPass filtering (fc = 4kHz) of IR data
                ArrayList<Integer> IRfiltered = LowPass(IRnoDCMAF);
@@ -217,7 +217,7 @@ public class heartactivity extends AppCompatActivity {
             prev_w =(double)y.get(i)+0.95*prev_w;
         }
 
-        for (int i=0;i<100;i++){
+        for (int i=0;i<60;i++){
             ynoDC.remove(0);
             if(i%2 == 1){
                 ynoDC.remove(ynoDC.size()-1);
