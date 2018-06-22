@@ -48,6 +48,8 @@ public class lungactivity extends AppCompatActivity {
                 new IntentFilter("ReceivingData"));
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver3,
                 new IntentFilter("RawDataWrittenToFile"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver5,
+                new IntentFilter("CouldntConnect"));
 
         TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
 
@@ -68,6 +70,16 @@ public class lungactivity extends AppCompatActivity {
             textView3.setText(instr);
         }
     };
+
+    private BroadcastReceiver mMessageReceiver5 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(getBaseContext(), "Please turn on the device", Toast.LENGTH_SHORT).show();
+            stopService(new Intent(lungactivity.this, BluetoothService.class));
+            lungactivity.this.finish();
+        }
+    };
+
     private BroadcastReceiver mMessageReceiver2 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -83,6 +95,7 @@ public class lungactivity extends AppCompatActivity {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
             //if(no2activity.NOconc == 0) {
                 processData("rawdata.txt");
+                stopService(new Intent(lungactivity.this, BluetoothService.class));
                 File directory = getExternalFilesDir("/Profiles/");
                 // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
                 File file = new File(directory, chooseprofileactivity.profileChosen + ".txt");

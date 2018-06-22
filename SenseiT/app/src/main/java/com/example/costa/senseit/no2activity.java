@@ -47,6 +47,8 @@ public class no2activity extends AppCompatActivity {
                 new IntentFilter("ReceivingData"));
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver3,
                 new IntentFilter("RawDataWrittenToFile"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver5,
+                new IntentFilter("CouldntConnect"));
 
         TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
 
@@ -81,6 +83,7 @@ public class no2activity extends AppCompatActivity {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
            // if(lungactivity.NOconc == 0) {
                 processData("rawdata.txt");
+                stopService(new Intent(no2activity.this, BluetoothService.class));
                 File directory = getExternalFilesDir("/Profiles/");
                 // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
                 File file = new File(directory, chooseprofileactivity.profileChosen +".txt");
@@ -101,6 +104,15 @@ public class no2activity extends AppCompatActivity {
                 String text = Integer.toString(lungactivity.NOconc)+" ppm";
                 textView3.setText(text);
             } */
+        }
+    };
+
+    private BroadcastReceiver mMessageReceiver5 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(getBaseContext(), "Please turn on the device", Toast.LENGTH_SHORT).show();
+            stopService(new Intent(no2activity.this, BluetoothService.class));
+            no2activity.this.finish();
         }
     };
 

@@ -61,7 +61,7 @@ public class BluetoothService extends Service {
                     mBTSocket = createBluetoothSocket(device);
                 } catch (IOException e) {
                     fail = true;
-                    Toast.makeText(getBaseContext(), "Socket creation failed", Toast.LENGTH_SHORT).show();
+                    sendMessage5();
                 }
                 // Establish the Bluetooth socket connection.
                 try {
@@ -70,10 +70,9 @@ public class BluetoothService extends Service {
                     try {
                         fail = true;
                         mBTSocket.close();
-                        Toast.makeText(getBaseContext(), "Connection to device failed", Toast.LENGTH_SHORT).show();
+                        sendMessage5();
                     } catch (IOException e2) {
-                        //insert code to deal with this
-                        Toast.makeText(getBaseContext(), "Socket creation failed", Toast.LENGTH_SHORT).show();
+                        sendMessage5();
                     }
                 }
                 if (fail == false) {
@@ -114,6 +113,10 @@ public class BluetoothService extends Service {
 
     private void sendMessage4() {
         Intent intent = new Intent("FingerPlacedOnSensor");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+    private void sendMessage5() {
+        Intent intent = new Intent("CouldntConnect");
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
@@ -218,15 +221,15 @@ public class BluetoothService extends Service {
                 mmOutStream.write(bytes);
             } catch (IOException e) {
             }
-        }
+        } */
 
-        // Call this from the main activity to shutdown the connection
+       //  Call this from the main activity to shutdown the connection
         public void cancel() {
             try {
                 mmSocket.close();
             } catch (IOException e) {
             }
-        } */
+        }
     }
 
 }

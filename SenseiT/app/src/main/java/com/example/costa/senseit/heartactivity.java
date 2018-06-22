@@ -46,6 +46,8 @@ public class heartactivity extends AppCompatActivity {
                 new IntentFilter("RawDataWrittenToFile"));
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver4,
                 new IntentFilter("FingerPlacedOnSensor"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver5,
+                new IntentFilter("CouldntConnect"));
 
         TextView mMessageWindow = (TextView) findViewById(R.id.messageWindow);
 
@@ -61,6 +63,16 @@ public class heartactivity extends AppCompatActivity {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
             String instr = "Place finger on sensor";
             textView3.setText(instr);
+        }
+    };
+
+
+    private BroadcastReceiver mMessageReceiver5 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(getBaseContext(), "Please turn on the device", Toast.LENGTH_SHORT).show();
+            stopService(new Intent(heartactivity.this, BluetoothService.class));
+            heartactivity.this.finish();
         }
     };
 
@@ -99,6 +111,7 @@ public class heartactivity extends AppCompatActivity {
             textView3.setText(procd);
             // if(heartactivity.spo2 == 0) {
             processdata("rawdata.txt");
+            stopService(new Intent(heartactivity.this, BluetoothService.class));
             File directory = getExternalFilesDir("/Profiles/");
             // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             File file = new File(directory, chooseprofileactivity.profileChosen + ".txt");

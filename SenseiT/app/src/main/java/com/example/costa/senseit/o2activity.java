@@ -45,6 +45,8 @@ public class o2activity extends AppCompatActivity {
                 new IntentFilter("RawDataWrittenToFile"));
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver4,
                 new IntentFilter("FingerPlacedOnSensor"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver5,
+                new IntentFilter("CouldntConnect"));
 
         String someMessage = " Sp0 2 stands for the peripheral capillary blood oxygen saturation and estimates how much\n" +
                 "oxygen there is in your blood. The normal oxygen saturation in an adult is between 95% and\n" +
@@ -81,6 +83,7 @@ public class o2activity extends AppCompatActivity {
             textView3.setText(procd);
             // if(heartactivity.spo2 == 0) {
             processdata("rawdata.txt");
+            stopService(new Intent(o2activity.this, BluetoothService.class));
             File directory = getExternalFilesDir("/Profiles/");
             // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             File file = new File(directory, chooseprofileactivity.profileChosen + ".txt");
@@ -113,6 +116,15 @@ public class o2activity extends AppCompatActivity {
                     textView3.setText(text);
                 }
             }.start();
+        }
+    };
+
+    private BroadcastReceiver mMessageReceiver5 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(getBaseContext(), "Please turn on the device", Toast.LENGTH_SHORT).show();
+            stopService(new Intent(o2activity.this, BluetoothService.class));
+            o2activity.this.finish();
         }
     };
 
