@@ -49,7 +49,6 @@
             android:fontFamily="@font/avenirltstd_light"
             android:text="Connecting..."
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="@dimen/_30ssp" />
 
     </LinearLayout>
