@@ -104,7 +104,7 @@ public class o2activity extends AppCompatActivity {
     private BroadcastReceiver mMessageReceiver4 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            new CountDownTimer(15000, 1000) {
+            new CountDownTimer(10000, 1000) {
                 public void onTick(long millisUntilFinished) {
                     TextView textView3 = (TextView) findViewById(R.id.textView3);
                     String timeleft = "Please hold: " + Long.toString(millisUntilFinished / 1000);
@@ -145,7 +145,7 @@ public class o2activity extends AppCompatActivity {
                 spo2 = SPO2(IRwithoutDC, REDwithoutDC);
 
                 //Moving Average Filtering of IR data
-                ArrayList<Integer> IRnoDCMAF = MAF(IRwithoutDC, 15);
+                ArrayList<Integer> IRnoDCMAF = MAF(IRwithoutDC, 3);
 
                 //LowPass filtering (fc = 4kHz) of IR data
                 ArrayList<Integer> IRfiltered = LowPass(IRnoDCMAF);
@@ -208,9 +208,9 @@ public class o2activity extends AppCompatActivity {
 
         for (int i=0;i<100;i++){
             ynoDC.remove(0);
-            if(i%2 == 1){
-                ynoDC.remove(ynoDC.size()-1);
-            }
+        }
+        for(int i=0;i<100;i++){
+            ynoDC.remove(ynoDC.size()-1);
         }
         return ynoDC;
     }
@@ -249,9 +249,13 @@ public class o2activity extends AppCompatActivity {
         double prev_v = 0;
         ArrayList<Integer> yfiltered = new ArrayList<Integer>();
 
-        for (int i=0;i<y.size();i++){
+     /*   for (int i=0;i<y.size();i++){
             yfiltered.add((int)(1.367287359973195227e-1 *(double)y.get(i) + 0.72654252800536101020 * prev_v + prev_v));
             prev_v = 1.367287359973195227e-1 *(double)y.get(i) + 0.72654252800536101020 * prev_v;
+        } */
+        for (int i=0;i<y.size();i++){
+            yfiltered.add((int)(2.452372752527856026e-1 *(double)y.get(i) + 0.50952544949442879485  * prev_v + prev_v));
+            prev_v = 2.452372752527856026e-1 *(double)y.get(i) + 0.50952544949442879485  * prev_v;
         }
         return yfiltered;
     }
@@ -308,6 +312,6 @@ public class o2activity extends AppCompatActivity {
             meanbeatperiod = meanbeatperiod + BeatPeriods.get(i);
         }
         meanbeatperiod = meanbeatperiod / BeatPeriods.size(); //MeanBeatperiod in number of samples. Sample every 0.01 seconds.
-        return (int)(60/(meanbeatperiod*0.01)+0.5);
+        return (int)(60/(meanbeatperiod*0.05)+0.5);
     }
 }
