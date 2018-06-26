@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
     public void viewdataclick (View v){
-
+        Intent myIntent = new Intent(MainActivity.this,
+                ViewDataActivity.class);
+        startActivity(myIntent);
     }
 }
 

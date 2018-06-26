@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.costa.senseit.ViewDataActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="824dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="69dp"
+            android:text="Data History"
+            android:textAlignment="center"
+            android:textSize="@dimen/_30ssp" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="501dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="235dp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

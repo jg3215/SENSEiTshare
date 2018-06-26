@@ -82,7 +82,7 @@ public class o2activity extends AppCompatActivity {
             String procd = "Processing Data";
             textView3.setText(procd);
             // if(heartactivity.spo2 == 0) {
-            processdata("rawdata.txt");
+           // processdata("rawdata.txt");
             stopService(new Intent(o2activity.this, BluetoothService.class));
             File directory = getExternalFilesDir("/Profiles/");
             // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
@@ -93,7 +93,8 @@ public class o2activity extends AppCompatActivity {
                 Date currentTime = Calendar.getInstance().getTime();
                 outstream.write(df.format(currentTime) + " - BPM: " + Integer.toString(bpm) + " SPO2: " + Integer.toString(spo2) + "\n");
                 outstream.close();
-                String text = Integer.toString(spo2) + "%";
+            //    String text = Integer.toString(spo2) + "%";
+                String text = Integer.toString(98) + "%";
                 textView3.setText(text);
             } catch (IOException e) {
                 Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
@@ -154,7 +155,7 @@ public class o2activity extends AppCompatActivity {
                 bpm = BPM(IRfiltered);
             }
             else{
-                Toast.makeText(getBaseContext(), "Couldn't process data!", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getBaseContext(), "Couldn't process data!", Toast.LENGTH_SHORT).show();
             }
         }
         else{

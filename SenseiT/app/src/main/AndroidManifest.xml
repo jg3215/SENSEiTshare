@@ -51,11 +51,11 @@
         <activity android:name=".heartinstructions" />
         <activity android:name=".lunginstructions" />
 
+        <service
+            android:name=".BluetoothService"
+            android:enabled="true" />
 
-        <service android:enabled="true" android:name="com.example.costa.senseit.BluetoothService"/>
-
-
+        <activity android:name=".ViewDataActivity"></activity>
     </application>
-
 
 </manifest>

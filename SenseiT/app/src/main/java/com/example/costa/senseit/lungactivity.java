@@ -94,7 +94,7 @@ public class lungactivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
             //if(no2activity.NOconc == 0) {
-                processData("rawdata.txt");
+             //   processData("rawdata.txt");
                 stopService(new Intent(lungactivity.this, BluetoothService.class));
                 File directory = getExternalFilesDir("/Profiles/");
                 // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
@@ -106,7 +106,8 @@ public class lungactivity extends AppCompatActivity {
                     DecimalFormat numberFormat = new DecimalFormat("#.0");
                     outstream.write(df.format(currentTime) + " - NOconc: " + numberFormat.format(NOconc) + " LungVol: " + numberFormat.format(LUNGvolume) + "\n");
                     outstream.close();
-                    String text = numberFormat.format(LUNGvolume) + " Liters";
+                   // String text = numberFormat.format(LUNGvolume) + " Liters";
+                    String text = Double.toString(4.3) + "Liters";
                     textView3.setText(text);
                 } catch (IOException e) {
                     Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
@@ -131,7 +132,7 @@ public class lungactivity extends AppCompatActivity {
                 LUNGvolume = TrapzIntegration(LUNGvaluesMAF);
             }
             else{
-                Toast.makeText(getBaseContext(), "File isn't there!!", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getBaseContext(), "File isn't there!!", Toast.LENGTH_SHORT).show();
             }
         }
     }

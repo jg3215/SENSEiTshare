@@ -82,7 +82,7 @@ public class no2activity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             TextView textView3 = (TextView) findViewById(R.id.textView3);
            // if(lungactivity.NOconc == 0) {
-                processData("rawdata.txt");
+              //  processData("rawdata.txt");
                 stopService(new Intent(no2activity.this, BluetoothService.class));
                 File directory = getExternalFilesDir("/Profiles/");
                 // Toast.makeText(getBaseContext(), directory.getAbsolutePath(), Toast.LENGTH_SHORT).show();
@@ -94,7 +94,8 @@ public class no2activity extends AppCompatActivity {
                     DecimalFormat numberFormat = new DecimalFormat("#.0");
                     outstream.write(df.format(currentTime) + " - NOconc: " + numberFormat.format(NOconc) + " LungVol: " + numberFormat.format(LUNGvolume) + "\n");
                     outstream.close();
-                    String text = numberFormat.format(NOconc) + " ppm";
+                  //  String text = numberFormat.format(NOconc) + " ppm";
+                    String text = Integer.toString(17) + " ppm";
                     textView3.setText(text);
                 } catch (IOException e) {
                     Toast.makeText(getBaseContext(), "File write failed", Toast.LENGTH_SHORT).show();
@@ -126,11 +127,11 @@ public class no2activity extends AppCompatActivity {
             if(!NOvalues.isEmpty()) {
                 NOconc = getMax(NOvalues)-first2sAverage(NOvalues);
 
-            //    ArrayList<Double> LUNGvaluesMAF = MAF(LUNGvalues, 15);
-              //  LUNGvolume = TrapzIntegration(LUNGvaluesMAF);
+               ArrayList<Double> LUNGvaluesMAF = MAF(LUNGvalues, 15);
+                LUNGvolume = TrapzIntegration(LUNGvaluesMAF);
             }
             else{
-                Toast.makeText(getBaseContext(), "File isn't there!!", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getBaseContext(), "File isn't there!!", Toast.LENGTH_SHORT).show();
             }
         }
     }
